@@ -1,0 +1,1 @@
+export const EditCustomerId = (state) => state.edit_customer_id;

@@ -1,0 +1,1 @@
+export const loading_spinner = ({commit}, value) => commit('LOADING', value);

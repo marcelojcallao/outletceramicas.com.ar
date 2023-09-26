@@ -1,0 +1,1 @@
+export const ToPayDetailNotasDeCreditoGetter = (state) => state.notas_de_credito;

@@ -1,0 +1,1 @@
+export const LoadingGetter = (state) => state.loading;

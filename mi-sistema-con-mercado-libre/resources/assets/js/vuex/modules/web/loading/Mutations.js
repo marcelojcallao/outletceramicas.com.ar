@@ -1,0 +1,1 @@
+export const LOADING = (state, value) => state.loading = value;
