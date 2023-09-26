@@ -1,0 +1,12 @@
+export const ACTIVO = 1;
+export const PENDIENTE = 2;
+export const REMITIDO = 3;
+export const PRESUPUESTADO = 4;
+export const FACTURADO = 5; 
+export const PREPARADO = 6;
+export const RETIRADO = 7;
+export const DESPACHADO = 8;
+export const ENTREGADO = 9;
+export const ELIMINADO = 10;
+export const COTIZADO = 11;
+export const CUMPLIDO = 13;

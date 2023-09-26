@@ -1,0 +1,1 @@
+export const EDIT_CUSTOMER_SET_EDIT_CUSTOMER_ID = (state, customer_id) => state.customer_complete_data.id = customer_id;

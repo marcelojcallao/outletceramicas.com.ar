@@ -1,0 +1,1 @@
+export const SET_SALES = (state, value) => state.sales = value;
