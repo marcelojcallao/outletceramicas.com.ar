@@ -362,7 +362,7 @@ class Fractal implements JsonSerializable
     /**
      * Perform the transformation to array.
      *
-     * @return array|null
+     * @return array
      */
     public function toArray()
     {
@@ -454,11 +454,8 @@ class Fractal implements JsonSerializable
 
     /**
      * Convert the object into something JSON serializable.
-     *
-     * @return array|null
      */
-    #[\ReturnTypeWillChange]
-    public function jsonSerialize(): ?array
+    public function jsonSerialize()
     {
         return $this->toArray();
     }
