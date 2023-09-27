@@ -6,15 +6,13 @@ use App\Src\Afip\Traits\WSPadronTrait;
 
 class WSPUC05 extends AfipWebService{
 
-    const SERVICE = 'ws_sr_padron_a5';
+    const SERVICE = 'ws_sr_constancia_inscripcion';
 
     use WSPadronTrait;
-    
-    public function __construct($environment='PRODUCTION') 
+
+    public function __construct($environment='PRODUCTION')
     {
         parent::__construct(self::SERVICE, $environment);
     }
-        
-} 
 
-?>
+}

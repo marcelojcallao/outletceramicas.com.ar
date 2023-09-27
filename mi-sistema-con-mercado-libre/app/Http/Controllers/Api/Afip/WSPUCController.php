@@ -12,30 +12,17 @@ use App\Exceptions\Afip\AfipResponseException;
 
 class WSPUCController extends Controller
 {
-    protected $afip_padron;
+	protected $afip_padron;
 
-    public function __construct()
-    {
-        $this->afip_padron = new AfipWSPadron('production');
-    }
+	public function __construct()
+	{
+		$this->afip_padron = new AfipWSPadron('production');
+	}
 
-    public function getPersona()
-    {
-        $afip_data = $this->afip_padron->getPersona(request()->cuit);
+	public function getPersona()
+	{
+		$afip_data = $this->afip_padron->getPersona(request()->cuit);
 
-        //dd($person);
-        /* $response = new WSPUCResponse($person);
-
-        if ($response->hasErrorConstancia() || $response->hasErrorRegimenGeneral()){
-
-            $err = collect([
-                'Code' => 0,
-                'Msg' => $response->getMsgError(),
-            ]);
-
-            throw new AfipResponseException($err->toJson(), 444);
-        } */  
-
-        return response()->json($afip_data, 200);
-    }
+		return response()->json($afip_data, 200);
+	}
 }

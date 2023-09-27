@@ -1,27 +1,9 @@
 <?php return array (
-  'atayahmet/laravel-nestable' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Nestable\\NestableServiceProvider',
-    ),
-    'aliases' => 
-    array (
-      'Nestable' => 'Nestable\\Facades\\NestableService',
-    ),
-  ),
   'barryvdh/laravel-cors' => 
   array (
     'providers' => 
     array (
       0 => 'Barryvdh\\Cors\\ServiceProvider',
-    ),
-  ),
-  'cviebrock/eloquent-sluggable' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Cviebrock\\EloquentSluggable\\ServiceProvider',
     ),
   ),
   'fideloper/proxy' => 
@@ -85,17 +67,6 @@
       0 => 'Laravel\\Tinker\\TinkerServiceProvider',
     ),
   ),
-  'maatwebsite/excel' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
-    ),
-    'aliases' => 
-    array (
-      'Excel' => 'Maatwebsite\\Excel\\Facades\\Excel',
-    ),
-  ),
   'mahdimajidzadeh/laravel-unsplash' => 
   array (
     'providers' => 
@@ -122,20 +93,6 @@
     'providers' => 
     array (
       0 => 'OwenIt\\Auditing\\AuditingServiceProvider',
-    ),
-  ),
-  'sofa/eloquence-base' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Sofa\\Eloquence\\BaseServiceProvider',
-    ),
-  ),
-  'sofa/eloquence-mutable' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Sofa\\Eloquence\\MutableServiceProvider',
     ),
   ),
   'spatie/geocoder' => 
@@ -179,6 +136,14 @@
     'providers' => 
     array (
       0 => 'Spatie\\MediaLibrary\\MediaLibraryServiceProvider',
+    ),
+  ),
+  'xethron/migrations-generator' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Way\\Generators\\GeneratorsServiceProvider',
+      1 => 'Xethron\\MigrationsGenerator\\MigrationsGeneratorServiceProvider',
     ),
   ),
 );

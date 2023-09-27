@@ -6,9 +6,10 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Xethron\\MigrationsGenerator' => array($vendorDir . '/xethron/migrations-generator/src'),
+    'Way\\Generators' => array($vendorDir . '/xethron/laravel-4-generators/src'),
     'UpdateHelper\\' => array($vendorDir . '/kylekatarnls/update-helper/src'),
     'Parsedown' => array($vendorDir . '/erusev/parsedown'),
     'Orangehill\\Iseed' => array($vendorDir . '/orangehill/iseed/src'),
     'Mockery' => array($vendorDir . '/mockery/mockery/library'),
-    'HTMLPurifier' => array($vendorDir . '/ezyang/htmlpurifier/library'),
 );

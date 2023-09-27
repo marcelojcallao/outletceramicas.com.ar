@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<loginTicketRequest version="1.0"><header><uniqueId>1694660764</uniqueId><generationTime>2023-09-14T03:05:04+00:00</generationTime><expirationTime>2023-09-14T03:07:04+00:00</expirationTime></header><service>ws_sr_padron_a13</service></loginTicketRequest>
+<loginTicketRequest version="1.0"><header><uniqueId>1695826046</uniqueId><generationTime>2023-09-27T14:46:26+00:00</generationTime><expirationTime>2023-09-27T14:48:26+00:00</expirationTime></header><service>wsfecred</service></loginTicketRequest>

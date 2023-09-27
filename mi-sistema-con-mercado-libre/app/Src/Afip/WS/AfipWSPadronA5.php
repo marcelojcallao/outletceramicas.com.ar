@@ -7,47 +7,43 @@ use FFI\Exception;
 
 class AfipWSPadronA5 extends AfipWebService
 {
-    const SERVICE = 'ws_sr_padron_a5';
+	const SERVICE = 'ws_sr_constancia_inscripcion';
 
-    public function __construct($environment)
-    {
-        parent::__construct(self::SERVICE, $environment);
+	public function __construct($environment)
+	{
+		parent::__construct(self::SERVICE, $environment);
 
-        $this->afip_params = [];
-        $this->afip_params['token'] = $this->Auth['Token'];
-        $this->afip_params['sign'] = $this->Auth['Sign'];
-        $this->afip_params['cuitRepresentada'] = $this->cuitRepresentada;
-    }
+		$this->afip_params = [];
+		$this->afip_params['token'] = $this->Auth['Token'];
+		$this->afip_params['sign'] = $this->Auth['Sign'];
+		$this->afip_params['cuitRepresentada'] = $this->cuitRepresentada;
+	}
 
-    public function getPersona($cuit)
-    {
-        try
-        {
-            $this->afip_params['idPersona'] = floatval($cuit);
-            
-            $result = $this->soapHttp->getPersona($this->afip_params);
+	public function getPersona($cuit)
+	{
+		try {
+			$this->afip_params['idPersona'] = floatval($cuit);
 
-            if (is_soap_fault($result)) {
-                return response()->json($result, 500);
-            }
+			$result = $this->soapHttp->getPersona($this->afip_params);
 
-            $r =  json_decode(json_encode($result), true);
-            
-            return $r;
-        }
-        
-        catch (\Exception $e)
-        {
-            activity('Error')
-                ->withProperties(['Afip' => $e->getMessage()])
-                ->log('Ha ocurrido un error');
-            throw new \Exception($e->getMessage(), $e->getCode());
-        }
-    }
+			if (is_soap_fault($result)) {
+				return response()->json($result, 500);
+			}
 
-    public function __checkErrors($operation, $results)
-    {
+			$r =  json_decode(json_encode($result), true);
 
-        $res = $results->{$operation.'Result'};
-    }
+			return $r;
+		} catch (\Exception $e) {
+			activity('Error')
+				->withProperties(['Afip' => $e->getMessage()])
+				->log('Ha ocurrido un error');
+			throw new \Exception($e->getMessage(), $e->getCode());
+		}
+	}
+
+	public function __checkErrors($operation, $results)
+	{
+
+		$res = $results->{$operation . 'Result'};
+	}
 }
