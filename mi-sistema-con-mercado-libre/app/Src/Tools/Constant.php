@@ -2,13 +2,16 @@
 
 namespace App\Src\Tools;
 
-class Constant {
+class Constant
+{
 
-    /**
-     * PREFIX
-     */
+	/**
+	 * PREFIX
+	 */
 
-    const NUMBER_ORDER = '#OR';
+	const NUMBER_ORDER = '#OR';
 
-    const ARGENTINA = 'Argentina';
+	const ARGENTINA = 'Argentina';
+
+	const WEB_PRICE_LIST = 4;
 }
