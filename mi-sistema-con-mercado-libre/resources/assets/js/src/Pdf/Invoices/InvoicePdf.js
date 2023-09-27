@@ -11,7 +11,7 @@ class InvoicePdf extends Pdf {
         super()
 
         this.BillCbteTipo = BillCbteTipo;
-        
+
         this.heightPosition_add_page = true;
 
         this.company = {
@@ -366,7 +366,7 @@ class InvoicePdf extends Pdf {
         );
         this.write_text(
             [
-                'Fecha: ' + date, 
+                'Fecha: ' + date,
             ],
             true,
             12,
@@ -403,7 +403,7 @@ class InvoicePdf extends Pdf {
         this.pdf.setFont('Helvetica');
         this.pdf.text('Código 201',92, 19);
     }
-    
+
     customer_data(customer = null, address = null, iva = null, cuit = null, docTipo=null, delivery_address=null)
     {
         let customer_address = '';
@@ -440,7 +440,7 @@ class InvoicePdf extends Pdf {
                     height_position = height_position + 4;
                     this.pdf.text(line, this.first_column_text(), height_position);
                 });
-                
+
             }else{
                 height_position = height_position + 4;
                 this.pdf.text(t, this.first_column_text(), height_position);
@@ -459,11 +459,11 @@ class InvoicePdf extends Pdf {
         );
 
     }
-    
+
     total_a_letras(value)
     {
         let NumLetras = new NumerosALetras;
-        
+
         let txt = NumLetras.NumeroALetras(value, {
             plural: "PESOS",
             singular: "PESO",
@@ -491,12 +491,12 @@ class InvoicePdf extends Pdf {
         return new Intl.NumberFormat('es-AR',
             {
                 style:"currency",
-                currency:"ARS", 
+                currency:"ARS",
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
                 useGrouping : true,
             }).format(parseFloat(value));
-    }  
+    }
 
     total_width(){
         return (this.margin_right - this.margin_left);
@@ -551,7 +551,7 @@ class InvoicePdf extends Pdf {
             [
 
                 'REFERENCIA COMERCIAL: 49676' ,
-                
+
             ],
             true,
             8,
@@ -573,7 +573,7 @@ class InvoicePdf extends Pdf {
 
         this.write_text(
             [
-                //'Condición de Pago: Otros medios de pago habilitados por BCRA' 
+                //'Condición de Pago: Otros medios de pago habilitados por BCRA'
                 condition
             ],
             true,
@@ -645,7 +645,7 @@ class InvoicePdf extends Pdf {
     }
 
     digVerificador(digVerificador) {
-        /* 
+        /*
             RUTINA PARA EL CALCULO DEL DIGITO VERIFICADOR
             Se considera para efectuar el cálculo el siguiente ejemplo:
             01234567890
@@ -670,7 +670,7 @@ class InvoicePdf extends Pdf {
             - Punto de venta (4 caracteres).
             - Código de Autorización de Impresión (14 caracteres).
             - Fecha de vencimiento (8 caracteres). YYYYMMDD
-            - Dígito verificador (1 carácter).			
+            - Dígito verificador (1 carácter).
         */
         let sumaPar = 0;
         let sumaImpar = 0;
@@ -706,11 +706,11 @@ class InvoicePdf extends Pdf {
             185,
             288,
         );
-        
+
     }
 
     estructureBase() {
-        this.pdf.addImage(BackGroundWater.base_64(), 'PNG', 10, 110, 190, 100);
+        //this.pdf.addImage(BackGroundWater.base_64(), 'PNG', 10, 110, 190, 100);
         this.pdf.addImage(Logo.base_64(), 'PNG', 10, 6, 77, 29);
         this.code201();
         this.topBorder();
@@ -727,12 +727,12 @@ class InvoicePdf extends Pdf {
         this.horizontalLine(this.margin_left, this.first_line_height, this.margin_right, this.first_line_height);
         this.horizontalLine(this.margin_left, this.first_line_height + 10, this.margin_right, this.first_line_height + 10);
         this.verticalLine(this.margin_left + 15, 103, this.margin_left + 15, this.margin_bottom - (this.one_cm() * 4))
-        
+
     }
 
     writeData(){
         this.estructureBase();
-            
+
         this.cae(this.voucher.cae, this.voucher.expiration_cae);
         this.invoice_type(this.voucher.letter);
         this.customer_data(this.customer.name, this.customer.address, this.customer.inscription, this.customer.cuit, this.customer.docTipo, this.voucher.delivery_address);
@@ -741,20 +741,20 @@ class InvoicePdf extends Pdf {
         this.leftHeaderCompanyData(this.company);
         this.rightHeaderCompanyData(this.company.cuit, this.company.iibb_conv, this.company.activity_init);
         this.invoice_type_name(this.voucher.name, this.voucher.number + '', this.voucher.date);
-        
+
     }
 
     generatePdf(titles){
-        
+
         const titles_collection = collect(titles);
-        
+
         let pageCount = 0;
-        
+
         titles_collection.each((title) => {
-            
+
             this.details_of_product(title);
             this.details_of_totals();
-            
+
             const qrAfip = new QrAfip(
                 this.qrAfip.ver,
                 this.qrAfip.date,
@@ -773,7 +773,7 @@ class InvoicePdf extends Pdf {
             const qr_base_64 = qrAfip.generate_qr();
             this.pdf.addImage(qr_base_64, 'PNG', 5, 262, 40, 40);
             this.pdf.addPage();
-            
+
         });
         pageCount = this.pdf.internal.getNumberOfPages();
         this.pdf.deletePage(pageCount)
@@ -783,7 +783,7 @@ class InvoicePdf extends Pdf {
 
         const leyendaMonotributo = 'EL CRÉDITO FICAL DISCRIMINADO EN EL PRESENTE COMPROBANTE SÓLO PODRÁ SER COMPUTADO A EFECTOS DEL PROCEDIMIENTO PERMANENTE DE TRANSICIÓN AL RÉGIMEN GENERAL - CAPÍTULO IV DE LA LEY N° 27.618';
         const array_text = this.pdf.splitTextToSize(leyendaMonotributo, 150);
-                
+
         this.pdf.setFontSize(8);
         this.pdf.setTextColor('red');
         this.pdf.text(array_text, this.margin_left + 40 , this.margin_bottom + 8, {align: 'left'});
