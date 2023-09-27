@@ -13,5 +13,5 @@ class Constant
 
 	const ARGENTINA = 'Argentina';
 
-	const WEB_PRICE_LIST = 1;
+	const WEB_PRICE_LIST = 4;
 }
