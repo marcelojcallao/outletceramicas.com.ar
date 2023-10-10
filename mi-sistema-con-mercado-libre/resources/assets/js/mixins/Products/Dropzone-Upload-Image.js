@@ -2,7 +2,7 @@ import {mapGetters} from 'vuex';
 
 import 'vue2-dropzone/dist/vue2Dropzone.min.css';
     export default {
-        
+
         data(){
             return {
                 base_url : '/api/products',
@@ -22,6 +22,7 @@ import 'vue2-dropzone/dist/vue2Dropzone.min.css';
                     dictCancelUploadConfirmation : "¿Desea cancelar la subida de ésta imagen?",
                     dictUploadCanceled : 'Cancelada',
                     dictFileTooBig : 'Se exede el tamaño permitido',
+					acceptedFiles: 'image/*',
                     headers: {
                         Authorization: null
                     },
@@ -31,8 +32,8 @@ import 'vue2-dropzone/dist/vue2Dropzone.min.css';
                         selected_categories_from_root : null,
                     },
                     init : function() {
-                        this.on("error", function(file, message) { 
-                            this.removeFile(file); 
+                        this.on("error", function(file, message) {
+                            this.removeFile(file);
                         });
                     },
                     parallelUploads : 5,
@@ -44,7 +45,7 @@ import 'vue2-dropzone/dist/vue2Dropzone.min.css';
         },
 
         methods : {
-            
+
             success_multiple_files_message(){
                     this.$toast.success('Producto', 'Proceso realizado correctamente' , {
                     timeOut : 4000,
@@ -56,17 +57,17 @@ import 'vue2-dropzone/dist/vue2Dropzone.min.css';
                     iconColor : 'black',
                     progressBarColor: 'rgb(0, 255, 184)',
                     pauseOnHover : false,
-                });   
+                });
             },
 
             upload() {
-                
+
                 this.loading = true;
                 this.dropzoneOptions.headers.Authorization = 'Bearer ' + this.User.token;
                 this.dropzoneOptions.params.product = JSON.stringify(this.ProductGetter)
                 this.dropzoneOptions.params.categories_path = JSON.stringify(this.ChildCategories)
                 this.dropzoneOptions.params.selected_categories_from_root = JSON.stringify(this.SelectedCategoriesFromRootGetter)
-                this.$refs.dropzoneProductImage.processQueue();   
+                this.$refs.dropzoneProductImage.processQueue();
             },
 
             fileRemoved(){},
@@ -79,7 +80,7 @@ import 'vue2-dropzone/dist/vue2Dropzone.min.css';
             },
 
             SuccessMethod(file, response){
-                return response; 
+                return response;
             },
 
             SuccessMultipleFiles(file, response){

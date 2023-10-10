@@ -52,11 +52,11 @@
             {
                 this.loading = true;
 
-                await this.sleep(500);
+                await this.sleep(100);
 
                 if(this.$refs.dropzoneProductImage.getQueuedFiles() && this.$refs.dropzoneProductImage.getQueuedFiles().length == 0)
                 {
-                    let product = await this.update_product();
+                    const product = await this.update_product();
 
                     if (product) {
                         this.loading = false;
