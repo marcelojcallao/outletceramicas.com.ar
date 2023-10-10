@@ -243,6 +243,7 @@
                     :vdropzone-sending="sendingEvent"
                     :vdropzone-success="SuccessMethod"
                     :vdropzone-removed-file="fileRemoved"
+					:vdropzone-error="dropzoneError"
                     @vdropzone-success-multiple="SuccessMultipleFiles"
                 >
 
@@ -251,11 +252,19 @@
         </template>
         <template #submit-button>
             <div class="text-center">
+                <!-- <button
+                    class="btn btn-warning"
+                    @click="prevProduct"
+                >Anterior producto</button> -->
                 <button
                     class="btn btn-primary"
-                    @click="upload_product()"
+                    @click="upload_product"
                     :disabled="$v.$invalid"
                 >Guardar</button>
+                <!-- <button
+                    class="btn btn-warning"
+                    @click="nextProduct"
+                >Siguiente producto</button> -->
             </div>
             <BlockUI :message="msg" v-if="loading"></BlockUI>
         </template>
@@ -310,7 +319,20 @@ export default {
             }).toArray();
 
             this.$store.commit('NEW_PRODUCT_ADD_PRICE_LIST', price_list);
-        }
+        },
+
+		dropzoneError(){
+			console.log("🚀 ~ file: Product-form-base.vue:317 ~ dropzoneError ~ dropzoneError:", 'dropzoneError')
+
+		},
+
+		prevProduct(){
+
+		},
+
+		nextProduct(){
+
+		}
     },
 
     computed : {
@@ -398,4 +420,7 @@ export default {
         display: flex;
         flex-direction: row;
     }
+	.text-center button {
+		margin-right: 10rem;
+	}
 </style>

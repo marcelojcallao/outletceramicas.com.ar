@@ -15,7 +15,8 @@ class ProductController extends Controller
 	public function index()
 	{
 		$productsAtWeb = Product::query();
-
+		/* $productsAtWeb = $productsAtWeb->where('active', true)->where('published_here', true);
+		dd($productsAtWeb->get()->first()->pricelists); */
 		$productsAtWeb =  $productsAtWeb = Product::whereHas('categories', function ($q) {
 			$q->where('active', '=', 1); //categoría activa
 		})->whereHas('pricelists', function ($pl) {
