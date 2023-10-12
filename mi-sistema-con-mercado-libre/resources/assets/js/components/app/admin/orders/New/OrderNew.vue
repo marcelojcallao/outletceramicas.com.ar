@@ -103,6 +103,10 @@ import add_customer_modal from './../../../../../components/app/customers/new/ad
 			addProductModal(){
 				const product_modal = document.getElementById('product_modal');
 				$(product_modal).modal('show');
+
+				if (this.ProductFromNewOrder[0].total > 0) {
+                    this.$store.commit('NEW_ORDER_ADD_NEW_ROW_PRODUCT');
+                }
 			},
 
             showPanel() {
