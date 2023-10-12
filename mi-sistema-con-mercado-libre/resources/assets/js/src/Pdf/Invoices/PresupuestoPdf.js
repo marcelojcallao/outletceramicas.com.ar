@@ -17,7 +17,7 @@ class PresupuestoPdf extends InvoiceTypeB {
         this.invoice_original(title);
 
         collect(this.voucher.details_product).each((product, index) => {
-        console.log("🚀 ~ file: PresupuestoPdf.js:20 ~ PresupuestoPdf ~ collect ~ product:", product)
+        	console.log("🚀 ~ file: PresupuestoPdf.js:20 ~ PresupuestoPdf ~ collect ~ product:", product)
 
             if (height_position == this.first_line_where_write_details) {
                 this.writeData();

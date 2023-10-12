@@ -12,9 +12,9 @@ class AfipWSPadron
 
 	public function __construct($environment)
 	{
-		$this->padron_A5 = new AfipWSPadronA5($environment);
+		$this->padron_A5 = new AfipWSPadronA5('production');
 
-		$this->padron_A13 = new AfipWSPadronA13($environment);
+		$this->padron_A13 = new AfipWSPadronA13('production');
 	}
 
 	public function isCUITorCUIL($value)

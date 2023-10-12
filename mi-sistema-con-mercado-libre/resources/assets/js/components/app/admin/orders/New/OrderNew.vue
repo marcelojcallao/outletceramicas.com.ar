@@ -17,6 +17,7 @@
                 <small>
                     <strong style="color:green">Ctrl + F9</strong>
                     <p>Para ingresar un producto a la lista.</p>
+					<button class="btn btn-warning btn-xs" :disabled="NewOrderGetTypeGetter == null" @click="addProductModal">Agregar productos</button>
                 </small>
                 <!-- <small>
                     <button class="btn btn-primary btn-xs" @click="showPanelAddDeliveryAdrress">Ingresar domicilio de entrega</button>
@@ -98,6 +99,11 @@ import add_customer_modal from './../../../../../components/app/customers/new/ad
         },
 
         methods : {
+
+			addProductModal(){
+				const product_modal = document.getElementById('product_modal');
+				$(product_modal).modal('show');
+			},
 
             showPanel() {
                 const panel1Handle = this.$showPanel({
@@ -215,7 +221,7 @@ import add_customer_modal from './../../../../../components/app/customers/new/ad
                 'ProductFromNewOrder',
                 'CustomerValue',
                 'NewOrderGetTypeGetter',
-                'NewCustomerCompleteData'
+                'NewCustomerCompleteData',
             ]),
 
         },
