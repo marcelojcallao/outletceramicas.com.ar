@@ -23,128 +23,128 @@ use App\Src\Models\State;
 use App\Src\Models\Tax;
 
 Route::get('/', function () {
-    return view('welcome');
+	return view('welcome');
 });
 
 Route::get('/home', function () {
 
-    return view('app.mercadolibre.messages.messenger')->with(['view_name' => 'aaaaaaaaaaaaaaaaaaaaaaa']);;
-    
+	return view('app.mercadolibre.messages.messenger')->with(['view_name' => 'aaaaaaaaaaaaaaaaaaaaaaa']);;
 });
 Route::get('pp', function () {
-    
-   $pcs = PedidoCliente::find(215);
 
-    dd($pcs->payment_type_aditional);
+	$p = Product::all();
+
+	$p->map(function ($prod) {
+		$www = substr($prod->code, 1);
+		$prod->code = $www;
+		$prod->save();
+	});
+
+	dd('pp');
 });
 
-Route::get('afip/ptovta', function(){
-    $afip = new AfipWSFE('production');
+Route::get('afip/ptovta', function () {
+	$afip = new AfipWSFE('production');
 
-    $result = $afip->FEParamGetPtosVenta();
+	$result = $afip->FEParamGetPtosVenta();
 
-    dd($result);
+	dd($result);
 });
 Route::get('afip/{CbteTipo}/{PtoVta}/{CbteNro}', function () {
 
-    $afip = new AfipWSFE('production');
+	$afip = new AfipWSFE('production');
 
-    $result = $afip->ConsultarComprobanteEmitido(request()->CbteTipo, request()->PtoVta, request()->CbteNro);
+	$result = $afip->ConsultarComprobanteEmitido(request()->CbteTipo, request()->PtoVta, request()->CbteNro);
 
-    dd($result);
-
+	dd($result);
 });
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('logout', 'Auth\LoginController@logout')->name('logout');    
+	Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
-    /** PRODUCTS */
-    Route::group(['prefix' => 'productos', 'middleware' => ['meli']], function () {
-        Route::get('nuevo', 'App\ProductController@create')->name('product.create');
-        Route::get('precio', 'App\ProductController@price')->name('product.price');
-    });
+	/** PRODUCTS */
+	Route::group(['prefix' => 'productos', 'middleware' => ['meli']], function () {
+		Route::get('nuevo', 'App\ProductController@create')->name('product.create');
+		Route::get('precio', 'App\ProductController@price')->name('product.price');
+	});
 
-    /** PUBLICATIONS */
-    Route::group(['prefix' => 'publicacion', 'middleware' => ['meli']], function () {
-        Route::get('nueva', 'App\PublicationController@create')->name('publication.create');
-    });
+	/** PUBLICATIONS */
+	Route::group(['prefix' => 'publicacion', 'middleware' => ['meli']], function () {
+		Route::get('nueva', 'App\PublicationController@create')->name('publication.create');
+	});
 
-    /** VARIATIONS */
-    Route::group(['prefix' => 'variacion', 'middleware' => ['meli']], function () {
-        Route::get('nueva', 'App\VariationController@create')->name('variation.create');
-    });
+	/** VARIATIONS */
+	Route::group(['prefix' => 'variacion', 'middleware' => ['meli']], function () {
+		Route::get('nueva', 'App\VariationController@create')->name('variation.create');
+	});
 
-    /** MERCADO LIBRE */
-    Route::group(['prefix' => 'mercadolibre', 'middleware' => ['meli']], function () {
-        Route::get('listado', 'App\MercadoLibreController@list')->name('meli.list');
-        Route::get('editar/{meli_id}', 'App\MercadoLibreController@edit')->name('meli.edit');
-        Route::get('sincronizar/cuenta', 'App\MercadoLibreController@syncro')->name('meli.syncro');
-    });
+	/** MERCADO LIBRE */
+	Route::group(['prefix' => 'mercadolibre', 'middleware' => ['meli']], function () {
+		Route::get('listado', 'App\MercadoLibreController@list')->name('meli.list');
+		Route::get('editar/{meli_id}', 'App\MercadoLibreController@edit')->name('meli.edit');
+		Route::get('sincronizar/cuenta', 'App\MercadoLibreController@syncro')->name('meli.syncro');
+	});
 
-    /** MERCADOPAGO */
-    Route::group(['prefix' => 'mercadopago', 'middleware' => ['meli']], function () {
-        Route::get('listado', 'App\MercadoPagoController@mercadopago_payments')->name('mercadopago.list');    
-    });
+	/** MERCADOPAGO */
+	Route::group(['prefix' => 'mercadopago', 'middleware' => ['meli']], function () {
+		Route::get('listado', 'App\MercadoPagoController@mercadopago_payments')->name('mercadopago.list');
+	});
 
-    /** PEDIDOS */
-    Route::group(['prefix' => 'pedidos', 'middleware' => ['meli']], function () {
-        Route::get('listado', 'App\OrdersController@pedidos');    
-    });
+	/** PEDIDOS */
+	Route::group(['prefix' => 'pedidos', 'middleware' => ['meli']], function () {
+		Route::get('listado', 'App\OrdersController@pedidos');
+	});
 
-    Route::group(['prefix' => 'ordenes'], function () {
-        
-        Route::get('/listado', 'App\MeliNotificationController@list')->name('notifications.list');
-        Route::get('/orden', 'App\MeliNotificationController@show')->name('order.show');
+	Route::group(['prefix' => 'ordenes'], function () {
 
-    });
-    /** PEDIDOS CLIENTES */
-    Route::group(['prefix' => 'pedidos/clientes'], function () {
-        
-        Route::get('/nuevo', 'App\PedidoClienteController@create');
-        Route::get('/edicion/{code}', 'App\PedidoClienteController@edit');
-        Route::get('/listado', 'App\PedidoClienteController@list');
-        Route::get('/comanda', 'App\PedidoClienteController@comanda');
+		Route::get('/listado', 'App\MeliNotificationController@list')->name('notifications.list');
+		Route::get('/orden', 'App\MeliNotificationController@show')->name('order.show');
+	});
+	/** PEDIDOS CLIENTES */
+	Route::group(['prefix' => 'pedidos/clientes'], function () {
 
-    });
-    
-    Route::group(['prefix' => 'clientes'], function () {
-        Route::get('listado', 'App\CustomerController@customer_list');       
-        Route::get('generar/comprobantes', 'App\CustomerController@generate_voucher')->middleware('afip-data');
-        Route::get('listado/comprobantes', 'App\CustomerController@invoices_list')->middleware('afip-data');
-        Route::get('edicion/{id}', 'App\CustomerController@edit');
-        Route::get('generar/recibo', 'App\CustomerController@generate_recibo');
-        Route::get('/recibo/listado', 'App\ReceiptCustomerController@list');
-        Route::get('/nuevo', 'App\CustomerController@create');
-    });
-    /**COMPRAS */
-    Route::group(['prefix' => 'proveedores'], function () {
-        Route::get('/comprobantes/ingreso', 'App\PurchaserInvoiceController@create');
-        Route::get('/comprobantes/pagar', 'App\PurchaserInvoiceController@to_pay');
-        Route::get('/comprobantes/listado', 'App\ProviderController@list');
-        Route::get('/nuevo', 'App\ProviderController@create');
-        Route::get('/ordenes/listado', 'App\OrderPaymentController@list');
-        Route::get('/recibos/nuevo', 'App\ReceiptPaymentToProvidersController@create');
-        Route::get('/recibos/listado', 'App\ReceiptPaymentToProvidersController@list');
-    });
+		Route::get('/nuevo', 'App\PedidoClienteController@create');
+		Route::get('/edicion/{code}', 'App\PedidoClienteController@edit');
+		Route::get('/listado', 'App\PedidoClienteController@list');
+		Route::get('/comanda', 'App\PedidoClienteController@comanda');
+	});
 
-    /** ARBA */
-    Route::group(['prefix' => 'arba'], function () {
-        Route::get('/alicuota-por-sujeto', 'App\ArbaController@create')->middleware('afip-data');
-    });
+	Route::group(['prefix' => 'clientes'], function () {
+		Route::get('listado', 'App\CustomerController@customer_list');
+		Route::get('generar/comprobantes', 'App\CustomerController@generate_voucher')->middleware('afip-data');
+		Route::get('listado/comprobantes', 'App\CustomerController@invoices_list')->middleware('afip-data');
+		Route::get('edicion/{id}', 'App\CustomerController@edit');
+		Route::get('generar/recibo', 'App\CustomerController@generate_recibo');
+		Route::get('/recibo/listado', 'App\ReceiptCustomerController@list');
+		Route::get('/nuevo', 'App\CustomerController@create');
+	});
+	/**COMPRAS */
+	Route::group(['prefix' => 'proveedores'], function () {
+		Route::get('/comprobantes/ingreso', 'App\PurchaserInvoiceController@create');
+		Route::get('/comprobantes/pagar', 'App\PurchaserInvoiceController@to_pay');
+		Route::get('/comprobantes/listado', 'App\ProviderController@list');
+		Route::get('/nuevo', 'App\ProviderController@create');
+		Route::get('/ordenes/listado', 'App\OrderPaymentController@list');
+		Route::get('/recibos/nuevo', 'App\ReceiptPaymentToProvidersController@create');
+		Route::get('/recibos/listado', 'App\ReceiptPaymentToProvidersController@list');
+	});
 
-    /** COMMISSIONS */
-    Route::group(['prefix' => 'comisiones'], function () {
-        Route::get('/listado', 'App\UserController@list');
-    });
+	/** ARBA */
+	Route::group(['prefix' => 'arba'], function () {
+		Route::get('/alicuota-por-sujeto', 'App\ArbaController@create')->middleware('afip-data');
+	});
 
-    /** CASH FLOW */
-    Route::group(['prefix' => 'cash'], function () {
-        Route::get('/ingresar', 'App\CashFlowController@cash_flow');
-    });
-    /** GANANCIAS POR VENTA */
-    Route::get('/ganancias', 'App\GainsController@list');
-    
+	/** COMMISSIONS */
+	Route::group(['prefix' => 'comisiones'], function () {
+		Route::get('/listado', 'App\UserController@list');
+	});
 
+	/** CASH FLOW */
+	Route::group(['prefix' => 'cash'], function () {
+		Route::get('/ingresar', 'App\CashFlowController@cash_flow');
+	});
+	/** GANANCIAS POR VENTA */
+	Route::get('/ganancias', 'App\GainsController@list');
 });
 
 /** Auth Routes */
@@ -177,7 +177,7 @@ Route::get('/productos', 'Web\WebController@listing_products')->name('listing.pr
 
 
 /** Rutas WEB */
-Route::post('mercadopago_callback', 'Web\WebController@mercadopago_callback');    
+Route::post('mercadopago_callback', 'Web\WebController@mercadopago_callback');
 
 
 /** PRODUCTS */
@@ -214,31 +214,31 @@ Route::post('/shipping', 'Web\CityController@shipping');
 
 /** AFIP */
 Route::group(['prefix' => 'afip'], function () {
-    
-    Route::get('mis-datos', 'App\AfipController@afip_data');
+
+	Route::get('mis-datos', 'App\AfipController@afip_data');
 });
 
 /** COMPANY */
 Route::group(['prefix' => 'empresa'], function () {
-    Route::get('datos', 'App\CompanyController@company_data');
-    Route::get('activar-usuario', 'App\AdminController@activate_user');
-    Route::get('impuestos', 'App\AdminController@taxes');
-    Route::get('productos/ingreso', 'App\AdminController@products');
-    Route::get('productos/listado', 'App\ProductController@list');
-    Route::get('productos/stock', 'App\ProductController@sheet_metal_cuttings');
-    Route::get('productos/edicion/{id}', 'App\ProductController@edit');
-    Route::get('ultimo/comprobante', 'App\AdminController@last_voucher_on_afip');
-    Route::get('categorias/nueva', 'App\CategoryController@new');
-    Route::get('categorias/listado', 'App\CategoryController@list');
-    Route::get('lista-precios/nueva', 'App\AdminController@priceList');
-    /** TIPO DE PAGOS */
-    Route::get('modo-de-pago', 'App\PaymentTypeController@list');
-    Route::get('dashboard', 'App\AdminController@dashboard');
-    Route::get('configuracion', 'App\AdminController@settings');
+	Route::get('datos', 'App\CompanyController@company_data');
+	Route::get('activar-usuario', 'App\AdminController@activate_user');
+	Route::get('impuestos', 'App\AdminController@taxes');
+	Route::get('productos/ingreso', 'App\AdminController@products');
+	Route::get('productos/listado', 'App\ProductController@list');
+	Route::get('productos/stock', 'App\ProductController@sheet_metal_cuttings');
+	Route::get('productos/edicion/{id}', 'App\ProductController@edit');
+	Route::get('ultimo/comprobante', 'App\AdminController@last_voucher_on_afip');
+	Route::get('categorias/nueva', 'App\CategoryController@new');
+	Route::get('categorias/listado', 'App\CategoryController@list');
+	Route::get('lista-precios/nueva', 'App\AdminController@priceList');
+	/** TIPO DE PAGOS */
+	Route::get('modo-de-pago', 'App\PaymentTypeController@list');
+	Route::get('dashboard', 'App\AdminController@dashboard');
+	Route::get('configuracion', 'App\AdminController@settings');
 });
 
 Route::group(['prefix' => 'error'], function () {
-    Route::get('401', 'ErrorController@error_401')->name('401');
+	Route::get('401', 'ErrorController@error_401')->name('401');
 });
 
 /** FORMULARIO DE CONTACTO - TIENDA */

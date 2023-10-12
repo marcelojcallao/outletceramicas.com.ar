@@ -710,7 +710,7 @@ class InvoicePdf extends Pdf {
     }
 
     estructureBase() {
-        //this.pdf.addImage(BackGroundWater.base_64(), 'PNG', 10, 110, 190, 100);
+        this.pdf.addImage(BackGroundWater.base_64(), 'PNG', 10, 110, 190, 100);
         this.pdf.addImage(Logo.base_64(), 'PNG', 10, 6, 77, 29);
         this.code201();
         this.topBorder();
