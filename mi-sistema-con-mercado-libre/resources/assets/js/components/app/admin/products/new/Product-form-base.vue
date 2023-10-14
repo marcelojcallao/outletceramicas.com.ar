@@ -243,7 +243,7 @@
                     :vdropzone-sending="sendingEvent"
                     :vdropzone-success="SuccessMethod"
                     :vdropzone-removed-file="fileRemoved"
-					:vdropzone-error="dropzoneError"
+					@vdropzone-error="dropzoneError"
                     @vdropzone-success-multiple="SuccessMultipleFiles"
                 >
 
@@ -321,8 +321,17 @@ export default {
             this.$store.commit('NEW_PRODUCT_ADD_PRICE_LIST', price_list);
         },
 
-		dropzoneError(){
-			console.log("🚀 ~ file: Product-form-base.vue:317 ~ dropzoneError ~ dropzoneError:", 'dropzoneError')
+		dropzoneError(event){
+			this.loading = false;
+			const resp = JSON.parse(event.xhr.response);
+			const errors = resp.errors;
+			for (const key in errors) {
+				if (Object.hasOwnProperty.call(errors, key)) {
+					const element = errors[key];
+					this.error_message(element[0])
+				}
+			}
+
 
 		},
 
