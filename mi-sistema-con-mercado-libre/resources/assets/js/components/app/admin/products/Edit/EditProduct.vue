@@ -56,7 +56,10 @@
 
                 if(this.$refs.dropzoneProductImage.getQueuedFiles() && this.$refs.dropzoneProductImage.getQueuedFiles().length == 0)
                 {
-                    const product = await this.update_product();
+                    const product = await this.update_product().catch((err)=>{
+						this.loading = false;
+						this.message('linea 61');
+					})
 
                     if (product) {
                         this.loading = false;
@@ -68,7 +71,12 @@
                 }
                 //dropzone
                 this.$refs.dropzoneProductImage.setOption("url", `/api/products/update`);
-                const product = await this.upload();
+                const product = await this.upload()
+					.catch((err) => {
+						console.log("🚀 ~ file: EditProduct.vue:73 ~ err:", err)
+						this.loading = false;
+						this.message('No se pudo actualizar el producto');
+					})
 
                 if (product) {
                     this.loading = false;
