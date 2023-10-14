@@ -1,7 +1,7 @@
 <template>
     <div class="text-center">
         <vue-dropzone :options="dropOptions" :vdropzone-sending="sendingEvent"  ref="uploadImage" id="mi-vuedropzone">
-            
+
         </vue-dropzone>
         <button style="margin-top:15px" class="btn btn-primary" @click.prevent="upload()">Subir Imágenes</button>
     </div>
@@ -36,6 +36,7 @@ export default {
                 },
                 parallelUploads : 5,
                 uploadMultiple: true,
+				acceptedFiles: 'image/*'
             }
         }
     },
@@ -46,7 +47,7 @@ export default {
             busVue.$emit('send_variation_attribute');
             setTimeout(() => {
                 this.dropOptions.params.product = JSON.stringify(this.$store.state.products.product)
-                this.$refs.uploadImage.processQueue();   
+                this.$refs.uploadImage.processQueue();
             }, 3000);
         },
         sendingEvent (file, xhr, formData) {
