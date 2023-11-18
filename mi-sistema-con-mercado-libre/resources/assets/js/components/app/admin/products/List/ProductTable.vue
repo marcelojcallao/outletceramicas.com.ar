@@ -45,7 +45,7 @@ import ChildRow from './ChildRow.vue'
                     'number',
                     'code',
                     'name',
-                    'attributes',
+                    'metros_cuadrados',
                     'critical_stock',
                     'stock',
                     'edit',
@@ -61,7 +61,7 @@ import ChildRow from './ChildRow.vue'
                         number : '#',
                         code : 'Código',
                         name : 'Nombre',
-                        attributes : 'Atributos',
+                        metros_cuadrados : 'M2 por caja',
                         critical_stock : 'Stock crítico',
                         stock : 'Stock',
                         edit : 'Acción',
@@ -69,7 +69,7 @@ import ChildRow from './ChildRow.vue'
 					childRow : ChildRow,
                     templates: {
                         number : row_number,
-                        attributes : Attribues,
+                        //attributes : Attribues,
                         edit : EditAndTrashButton,
                     },
                     columnsClasses: {
@@ -100,7 +100,13 @@ import ChildRow from './ChildRow.vue'
                                 condition: row => row.isCriticalStock
                             }
                         ],
-                        attributes: [
+                        /* attributes: [
+                            {
+                                class:'row-danger',
+                                condition: row => row.isCriticalStock
+                            }
+                        ], */
+                        metros_cuadrados: [
                             {
                                 class:'row-danger',
                                 condition: row => row.isCriticalStock

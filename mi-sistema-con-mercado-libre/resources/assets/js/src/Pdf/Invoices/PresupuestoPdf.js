@@ -58,7 +58,11 @@ class PresupuestoPdf extends InvoiceTypeB {
                     //description_when_isCHP = `Ajuste por corte ${rounded_mts_by_unit} mts./chapa - Total: ${product.mts_to_invoiced} mts.`
                 }
             }else{
-                description = product.product_name;
+                let metros_cuadrados = ''
+				if (product.metros_cuadrados) {
+					metros_cuadrados = 'M2xC. ' + product.metros_cuadrados
+				}
+                description = product.product_name + ' ' + metros_cuadrados;
             }
 
             const product_name_width = this.pdf.getTextDimensions(description);

@@ -1,7 +1,7 @@
 <script>
 import {mapGetters} from 'vuex';
 import auth from "./../../../../../../../mixins/auth.js";
-import MultiselectProductBase from './../../../../../../Base/Product/MultiselectProductBase';  
+import MultiselectProductBase from './../../../../../../Base/Product/MultiselectProductBase';
 export default {
     extends : MultiselectProductBase,
 
@@ -20,13 +20,13 @@ export default {
         asyncFind (query) {
 
             if (query != '') {
-                
+
                 window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.User.token;
 
                 axios.post('/api/products/find_by_name', {
                     product_name : query,
                 }).then((result) => {
-                    
+
                     const products = result.data;
 
                     products.forEach(product => {
@@ -40,15 +40,17 @@ export default {
                                 }
                             })
                         }
+						product.name = `${product.name} - M2xC. ${product.metros_cuadrados}`
                     });
+
                     this.$store.commit('NEW_ORDER_SET_PRODUCTS_ON_MULTISELECT_PRODUCTS', products);
                 }).catch((err) => {
-                    
+
                 });
             }
 
         },
-        
+
         removeProduct(el)
         {
             this.$store.commit('NEW_ORDER_SET_CURRENT_PRODUCT', null);
@@ -75,7 +77,7 @@ export default {
                 value : el.price_list,
                 product : el,
             }
-            
+
             this.$store.commit('NEW_ORDER_SET_PRICE_LISTS_OF_A_PRODUCT', payload);
 
             this.$store.commit('NEW_ORDER_SET_CURRENT_PRODUCT', el);
@@ -104,25 +106,25 @@ export default {
         },
 
         products(){
-            
-            const SIN_STOCK = 'SIN STOCK'; 
+
+            const SIN_STOCK = 'SIN STOCK';
 
             if (this.NewOrderDataGetter.type && this.NewOrderDataGetter.type.id === 102) {
-                
+
                 const products = this.NewOrderMultiselectProducts.map(product => {
-                    
+
                     product.$isDisabled = false;
 
-                    (product.name.includes(SIN_STOCK)) 
+                    (product.name.includes(SIN_STOCK))
                         ? product.name = product.name.substring(0, product.name.length - 12)
                         : product.name;
-                    
+
                     return product;
                 });
 
                 return products || [];
             }
-            
+
             return this.NewOrderMultiselectProducts;
         }
     }

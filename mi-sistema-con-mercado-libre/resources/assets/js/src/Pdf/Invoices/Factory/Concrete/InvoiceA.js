@@ -10,7 +10,7 @@ class InvoiceA extends InvoiceTypeA {
         super()
 
         this.BillCbteTipo = BillCbteTipo;
-        
+
     }
 
     details_of_product(title){
@@ -20,7 +20,7 @@ class InvoiceA extends InvoiceTypeA {
         let options = {};
         this.numberOfPages(current_page)
         this.invoice_original(title);
-        
+
         collect(this.voucher.details_product).each((product, index) => {
 
             if (height_position == this.first_line_where_write_details) {
@@ -47,7 +47,7 @@ class InvoiceA extends InvoiceTypeA {
                 maxWidth : 150,
                 align : 'left'
             }
-            
+
             let description = '';
             let description_when_isCHP = '';
 
@@ -63,7 +63,11 @@ class InvoiceA extends InvoiceTypeA {
                     description_when_isCHP = `Ajuste por corte ${rounded_mts_by_unit} mts. - Total: ${product.mts_to_invoiced} mts.`
                 }
             }else{
-                description = product.product_name;
+                let metros_cuadrados = ''
+				if (product.metros_cuadrados) {
+					metros_cuadrados = 'M2xC. ' + product.metros_cuadrados
+				}
+                description = product.product_name + ' ' + metros_cuadrados;
             }
 
             let product_name_width = this.pdf.getTextDimensions(description);
@@ -85,7 +89,7 @@ class InvoiceA extends InvoiceTypeA {
                     this.pdf.text(description_when_isCHP, width_position, height_position, options);
                 }
             }
-            
+
             //##### UNIT PRICE ######
             width_position = 135;
             options = {
@@ -136,11 +140,11 @@ class InvoiceA extends InvoiceTypeA {
                 maxWidth : 23,
                 align : 'right'
             }
- 
+
             this.pdf.text(this.CurrencyFormat(product.total_invoiceA), width_position, height_position, options);
-            
+
             if (height_position > 208) {
-                this.pdf.addPage();  
+                this.pdf.addPage();
                 height_position = 103;
                 this.invoice_original(title);
                 current_page = current_page + 1;
@@ -151,15 +155,15 @@ class InvoiceA extends InvoiceTypeA {
     }
 
     details_of_totals() {
-        
+
         let height_position = this.margin_bottom - 40;
         this.pdf.setFontSize(12);
         this.pdf.setFont('Helvetica','bold');
         if (this.voucher.totals) {
-       
+
             collect(this.voucher.totals).each((total, index) => {
                 if (typeof total === "object") {
-                
+
                     /////Neto////
                     height_position = height_position + 5;
                     let options = {};
@@ -169,7 +173,7 @@ class InvoiceA extends InvoiceTypeA {
                         maxWidth: 100,
                         align: 'right'
                     }
-                
+
                     this.pdf.text(total.neto_name, this.first_column_text() * 8.5, height_position, options);
 
                     options = {
@@ -207,7 +211,7 @@ class InvoiceA extends InvoiceTypeA {
                             maxWidth: 100,
                             align: 'right'
                         }
-                    
+
                         this.pdf.text(total.aditional_payment_name, this.first_column_text() * 8.5, height_position, options);
 
                         options = {
@@ -215,10 +219,10 @@ class InvoiceA extends InvoiceTypeA {
                             maxWidth: 100,
                             align: 'right'
                         }
-                        
+
                         this.pdf.text(this.CurrencyFormat(total.aditional_payment_value), this.first_column_text() * 11.5, height_position, options);
                     }
-                    
+
                     if (total.hasOwnProperty('iibb_name')) {
                         height_position = height_position + 5;
 
@@ -238,9 +242,9 @@ class InvoiceA extends InvoiceTypeA {
                         let iibb_import = (total.iibb_import == '') ? '' : this.CurrencyFormat(total.iibb_import);
                         this.pdf.text(iibb_import, this.first_column_text() * 11.5, height_position, options);
                     }
-                
+
                 }
-                
+
             }); // Close map
 
             height_position = height_position + 5;
@@ -250,7 +254,7 @@ class InvoiceA extends InvoiceTypeA {
                 maxWidth: 100,
                 align: 'right'
             }
-        
+
             this.pdf.text(this.voucher.totals.total_name, this.first_column_text() * 8.5, height_position, options);
 
             options = {
@@ -259,7 +263,7 @@ class InvoiceA extends InvoiceTypeA {
                 align: 'right'
             }
             this.pdf.text(this.CurrencyFormat(this.voucher.totals.total_import), this.first_column_text() * 11.5, height_position, options);
-                
+
             this.total_a_letras(this.voucher.totals.total_import);
             if ( this.customer.inscription === 'Responsable Monotributo') this.msg_monotributo()
         }

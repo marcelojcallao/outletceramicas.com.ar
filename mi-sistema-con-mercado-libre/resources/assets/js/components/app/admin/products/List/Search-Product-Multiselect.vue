@@ -2,7 +2,7 @@
 <script>
     import MultiselectBase from './../../../../Base/Multiselect/MultiselectBase';
     export default {
-        
+
         extends : MultiselectBase,
 
         data(){
@@ -16,7 +16,7 @@
             Value(){
                 return this.product;
             },
-           
+
         },
 
         methods : {
@@ -24,7 +24,7 @@
             async asyncFind(q){
 
                 if (q != '') {
-                    
+
                     this.show_spinner = true;
 
                     const { data:products } = await this.$store.dispatch('searchProductAction', q)

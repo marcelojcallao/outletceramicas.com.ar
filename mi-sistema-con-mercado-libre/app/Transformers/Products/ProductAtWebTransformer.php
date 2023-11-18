@@ -38,6 +38,7 @@ class ProductAtWebTransformer extends TransformerAbstract
 			'name' => strtoupper($product->name),
 			'description' => $product->description,
 			'attributes' => $product->attributes,
+			'metros_cuadrados' => $product->m2,
 			'stock' => $product->stock,
 			//WWW' => $product->priority->name,
 			'slug' => $product->slug,

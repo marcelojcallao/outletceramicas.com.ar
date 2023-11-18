@@ -176,7 +176,11 @@ class PedidoClientePdf extends InvoiceTypeB {
                     //description_when_isCHP = `Ajuste por corte ${product.rounded_mts} mts. - Total: ${product.mts_to_invoiced} mts.`
                 }
             }else{
-                description = product.product_name;
+				let metros_cuadrados = ''
+				if (product.metros_cuadrados) {
+					metros_cuadrados = 'M2xC. ' + product.metros_cuadrados
+				}
+                description = product.product_name + ' ' + metros_cuadrados;
             }
 
             let product_name_width = this.pdf.getTextDimensions(description);

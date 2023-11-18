@@ -39,6 +39,7 @@ class ProductsFormRequest extends FormRequest
 			'product.price_base' => ['required'],
 			//'product.price_base' => ['required', 'regex:[0-9]+(\.[0-9][0-9]?)?'],
 			'product.supplier' => ['required'],
+			'product.metros_cuadrados' => ['required'],
 			'selected_categories_from_root' => ['required'],
 		];
 	}
@@ -56,6 +57,7 @@ class ProductsFormRequest extends FormRequest
 			'product.name.max' => 'El nombre del producto debe contener menos de 100 caracteres.',
 			'product.price_base.required' => 'El producto debe poseer el costo.',
 			'product.supplier.required' => 'Se debe informar quien es el proveedor del producto.',
+			'product.metros_cuadrados.required' => 'Los metros cuadrados por caja son requeridos.',
 			'selected_categories_from_root.required' => 'Se debe informar la ruta de categorías del producto.',
 		];
 	}

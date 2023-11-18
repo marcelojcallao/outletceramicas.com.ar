@@ -7,16 +7,16 @@
     import multiselect_provider from  './../../components/app/admin/products/new/multiselect-provider.vue';
     import { requiredIf, required, between } from 'vuelidate/lib/validators';
     export default {
-        
+
         components : {
             multiselect_parent_categories, multiselect_child_categories, multiselect_provider, price_list_table,
                 attribute
         },
 
         mixins : [toast_mixin],
-        
+
         computed : {
-            
+
             product_name : {
                 get(){
                     return this.ProductGetter.name
@@ -79,7 +79,7 @@
                     this.$store.commit('NEW_PRODUCT_SET_DESCRIPTION', value);
                 }
             },
-            
+
             isCHP : {
                 get(){
                     return this.ProductGetter.isCHP;
@@ -93,12 +93,23 @@
                     this.$store.commit('NEW_PRODUCT_SET_IS_CHP', value);
                 }
             },
-            mts_by_unity : {
+            /* mts_by_unity : {
                 get(){
                     return this.ProductGetter.mts_by_unity;
                 },
                 set(value){
                     this.$store.commit('NEW_PRODUCT_SET_MTS_BY_UNITY', value);
+                }
+            }, */
+            metros_cuadrados : {
+                get(){
+                    console.log("🚀 ~ file: NewProduct.js:107 ~ get ~ this.ProductGetter:", this.ProductGetter)
+                    console.log("🚀 ~ file: NewProduct.js:108 ~ get ~ this.ProductGetter.metros_cuadrados:", this.ProductGetter.metros_cuadrados)
+                    console.log("🚀 ~ file: NewProduct.js:108 ~ get ~ this.ProductGetter.metros_cuadrados:", this.ProductGetter.name)
+                    return this.ProductGetter.metros_cuadrados;
+                },
+                set(value){
+                    this.$store.commit('NEW_PRODUCT_SET_MT2', value);
                 }
             },
 
@@ -125,7 +136,7 @@
                     return this.NewCategory.category_path;
                 },
                 set(value){
-                    
+
                 }
             },
 
@@ -137,11 +148,11 @@
                 'SelectedCategoriesFromRootGetter',
                 'NewCategory'
             ]),
-            
+
         },
 
         methods : {
-            
+
             message(message)
             {
                 this.success_message('Producto', message);
@@ -152,7 +163,7 @@
                 this.$store.commit('SET_CATEGORY_INITIAL_STATUS');
                 this.$store.commit('NEW_PRODUCT_SET_INITIAL_STATUS');
             },
-            
+
             async store_product()
             {
                 this.errors = null;
@@ -199,5 +210,5 @@
             }
 
         }
-       
+
     }

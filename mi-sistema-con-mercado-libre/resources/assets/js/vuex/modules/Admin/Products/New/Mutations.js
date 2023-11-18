@@ -148,6 +148,10 @@ const mutations = {
     {
         state.product.mts_by_unity = value;
     },
+    NEW_PRODUCT_SET_MT2(state, value)
+    {
+        state.product.metros_cuadrados = value;
+    },
 
     NEW_PRODUCT_SET_SEE_PRICE_ON_WEB_STORE(state, value) {
         state.product.see_price_on_web = value;

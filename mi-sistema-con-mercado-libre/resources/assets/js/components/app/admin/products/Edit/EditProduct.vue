@@ -122,7 +122,8 @@
                     this.$store.commit('EDIT_PRODUCT_SET_ID', product.data.id);
                     this.$store.commit('EDIT_PRODUCT_SET_PRICE', product.data.price);
                     //this.$store.commit('NEW_PRODUCT_SET_PRICE_BASE', product.data.price[0].price); //price es costo
-                    this.$store.commit('NEW_PRODUCT_SET_MTS_BY_UNITY', product.data.mts_by_unity);
+                    //this.$store.commit('NEW_PRODUCT_SET_MTS_BY_UNITY', product.data.mts_by_unity);
+                    this.$store.commit('NEW_PRODUCT_SET_MT2', product.data.metros_cuadrados);
                     this.$store.commit('EDIT_PRODUCT_SET_IMAGES', product.data.pictures);
                     this.$store.commit('NEW_PRODUCT_SET_PUBLISH_ON_WEB_STORE', (product.data.publish_on_web==1)?true:false);
                     this.$store.commit('NEW_PRODUCT_SET_SEE_PRICE_ON_WEB_STORE', (product.data.see_price_on_the_web==1)?true:false);

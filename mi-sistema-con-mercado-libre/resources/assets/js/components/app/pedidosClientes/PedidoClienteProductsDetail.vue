@@ -18,8 +18,8 @@
                 <tr v-for="(item, index) in PedidoListChildRowReactivityData.items" :key="index" >
                     <td class="text-center" >{{index + 1}}</td>
                     <td class="text-left" >{{
-                            (item.isCHP)
-                                ? `${item.product_name} - ${(parseFloat(item.real_mts) / parseFloat(item.quantity)).toFixed(2)} mts. x unid.`
+                            (item.metros_cuadrados)
+                                ? `${item.product_name} - M2xC. ${item.metros_cuadrados}`
                                 : item.product_name
                         }}
 

@@ -122,6 +122,7 @@ class EditProductTransformer extends TransformerAbstract
 			'attributes' => $product->attributes,
 			'active' => $product->active,
 			'mts_by_unity' => $product->mts_by_unity,
+			'metros_cuadrados' => $product->m2,
 			'category_id' => $product->category_id,
 			'supplier' => $this->setSupplier($product),
 			'price' => $this->setPrice($product),

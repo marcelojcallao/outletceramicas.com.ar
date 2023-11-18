@@ -97,6 +97,7 @@ class ProductController extends BaseController
 		$product->stock = $pr['stock'];
 		$product->critical_stock = $pr['critical_stock'];
 		$product->mts_by_unity = $pr['mts_by_unity'];
+		$product->m2 = $pr['metros_cuadrados'];
 		$product->see_price_on_the_web = $pr['see_price_on_web'];
 		$product->isCHP = $pr['isCHP'];
 		$product->published_here = $pr['publish_on_web'];

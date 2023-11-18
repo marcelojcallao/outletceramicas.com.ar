@@ -7,18 +7,18 @@ class InvoiceB extends InvoiceTypeB {
         super()
 
         this.BillCbteTipo = BillCbteTipo;
-        
+
     }
 
     details_of_product(title){
-        
+
         let height_position = this.first_line_where_write_details; //desde 103 a 220, en ese rango se imprimwn los detalles
         let current_page = 1;
         let width_position = 0;
         let options = {};
         this.numberOfPages(current_page)
         this.invoice_original(title);
-        
+
         collect(this.voucher.details_product).each((product, index) => {
 
             if (height_position == this.first_line_where_write_details) {
@@ -50,7 +50,7 @@ class InvoiceB extends InvoiceTypeB {
             let description_when_isCHP = '';
 
             if (product.isCHP) {
-                
+
                 const rounded_mts_by_unit = parseFloat(product.rounded_mts) / parseFloat(product.quantity);
 
                 const mts_by_unit = parseFloat(product.real_mts) / parseFloat(product.quantity);
@@ -62,7 +62,11 @@ class InvoiceB extends InvoiceTypeB {
                 }
 
             }else{
-                description = product.product_name;
+                let metros_cuadrados = ''
+				if (product.metros_cuadrados) {
+					metros_cuadrados = 'M2xC. ' + product.metros_cuadrados
+				}
+                description = product.product_name + ' ' + metros_cuadrados;
             }
 
             let product_name_width = this.pdf.getTextDimensions(description);
@@ -84,7 +88,7 @@ class InvoiceB extends InvoiceTypeB {
                     this.pdf.text(description_when_isCHP, width_position, height_position, options);
                 }
             }
-            
+
             //##### UNIT PRICE ######
             width_position = 156;
             options = {
@@ -117,13 +121,13 @@ class InvoiceB extends InvoiceTypeB {
                 maxWidth : 23,
                 align : 'right'
             }
- 
+
             //##### TOTAL ######
             this.pdf.setFontSize(9);
             this.pdf.text(this.CurrencyFormat(product.total_invoiceB), width_position, height_position, options);
-            
+
             if (height_position > 208) {
-                this.pdf.addPage();  
+                this.pdf.addPage();
                 height_position = 103;
                 this.invoice_original(title);
                 current_page = current_page + 1;
@@ -134,15 +138,15 @@ class InvoiceB extends InvoiceTypeB {
     }
 
     details_of_totals() {
-        
+
         let height_position = this.margin_bottom - 40;
         this.pdf.setFontSize(12);
         this.pdf.setFont('Helvetica','bold');
         if (this.voucher.totals) {
-       
+
             collect(this.voucher.totals).each((total, index) => {
                 if (typeof total === "object") {
-                
+
                     /* height_position = height_position + 5;
                     let options = {};
 
@@ -151,7 +155,7 @@ class InvoiceB extends InvoiceTypeB {
                         maxWidth: 100,
                         align: 'right'
                     }
-                
+
                     this.pdf.text(total.neto_name, this.first_column_text() * 8.5, height_position, options);
 
                     options = {
@@ -170,7 +174,7 @@ class InvoiceB extends InvoiceTypeB {
                             maxWidth: 100,
                             align: 'right'
                         }
-                    
+
                         this.pdf.text(total.aditional_payment_name, this.first_column_text() * 8.5, height_position, options);
 
                         options = {
@@ -180,8 +184,8 @@ class InvoiceB extends InvoiceTypeB {
                         }
                         this.pdf.text(this.CurrencyFormat(total.aditional_payment_value), this.first_column_text() * 11.5, height_position, options);
                     }
-                    
-                    
+
+
                     if (total.hasOwnProperty('iibb_name')) {
                         height_position = height_position + 5;
 
@@ -202,9 +206,9 @@ class InvoiceB extends InvoiceTypeB {
                         this.pdf.text(iibb_import, this.first_column_text() * 11.5, height_position, options);
 
                     } */
-                
+
                 }
-                
+
             }); // Close map
 
             height_position = height_position + 5;
@@ -214,7 +218,7 @@ class InvoiceB extends InvoiceTypeB {
                 maxWidth: 100,
                 align: 'right'
             }
-        
+
             this.pdf.text(this.voucher.totals.total_name, this.first_column_text() * 8.5, height_position, options);
 
             options = {
@@ -223,7 +227,7 @@ class InvoiceB extends InvoiceTypeB {
                 align: 'right'
             }
             this.pdf.text(this.CurrencyFormat(this.voucher.totals.total_import), this.first_column_text() * 11.5, height_position, options);
-                
+
             this.total_a_letras(this.voucher.totals.total_import);
         }
     }

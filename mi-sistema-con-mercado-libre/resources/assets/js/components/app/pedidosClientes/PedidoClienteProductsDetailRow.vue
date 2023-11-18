@@ -11,7 +11,8 @@
         </div>
         <div class="flex">
             <div class="item">{{index + 1}}</div>
-                <div class="item">{{item.product_name}} <strong>{{(item.product_attributes != '') ? ' | ' + item.product_attributes : ''}}</strong></div>
+                <!-- <div class="item">{{item.product_name}} <strong>{{(item.product_attributes != '') ? ' | ' + item.product_attributes : ''}}</strong></div> -->
+                <div class="item">{{item.product_name}} {{(item.metros_cuadrados != '') ? ' - M2xC. ' + item.metros_cuadrados : ''}}</div>
                 <div class="item">{{(item.isCHP) ? item.mts_to_invoiced : item.quantity}}</div>
                 <div class="item">{{(item.neto_import / item.quantity) | currency}}</div>
                 <div class="item">{{item.neto_import | currency}}</div>
@@ -31,6 +32,6 @@ export default {
     .flex {
         display: flex;
         justify-content: space-between;
-        
+
     }
 </style>

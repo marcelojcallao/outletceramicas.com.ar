@@ -93,7 +93,7 @@
         </template>
         <template #supplier_product>
             <div class="col-md-12 separate">
-                <div class="col-md-4" >
+                <div class="col-md-6" >
                     <div class="form-group-md">
                         <label class="control-label" >Nombre del producto en el proveedor</label>
                         <input class="form-control" type="text"
@@ -101,7 +101,7 @@
                         >
                     </div>
                 </div>
-                <div class="col-md-3" >
+                <div class="col-md-4" >
                     <div class="form-group-md">
                         <label class="control-label" >Código del producto en el proveedor</label>
                         <input class="form-control" type="text"
@@ -109,7 +109,7 @@
                         >
                     </div>
                 </div>
-                <div class="col-md-3" >
+                <!-- <div class="col-md-3" >
                     <div class="form-group-md" style="padding-top: 2.2rem;">
                         <label class="col-sm-6 control-label">Venta por metro</label>
                         <div class="col-sm-6">
@@ -119,8 +119,8 @@
                             </select>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-2" >
+                </div> -->
+                <!-- <div class="col-md-2" >
                     <div class="form-group-md">
                         <label class="control-label" >Metros por unidad</label>
                         <currency-input class="form-control text-center"
@@ -133,6 +133,21 @@
                             :precision="2"
                             v-model="mts_by_unity"
                             :disabled="! ProductGetter.isCHP"
+                        />
+                    </div>
+                </div> -->
+				<div class="col-md-2" >
+                    <div class="form-group-md">
+                        <label class="control-label" >Metros cuadrados por caja</label>
+                        <currency-input class="form-control text-center"
+                            type="text"
+                            @focus="$event.target.select()"
+                            ref="metros_cuadrados"
+                            :currency="null"
+                            locale="es-AR"
+                            :allow-negative="false"
+                            :precision="2"
+                            v-model="metros_cuadrados"
                         />
                     </div>
                 </div>

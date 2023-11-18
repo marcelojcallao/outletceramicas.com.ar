@@ -1,8 +1,8 @@
 <template>
     <div class="center--vertical">
-        <multiselect placeholder="Buscar producto" 
+        <multiselect placeholder="Buscar producto"
             id="ajax"
-            track-by="name" 
+            track-by="name"
             label="name"
             :custom-label="customLabel" :show-labels="false"
             :loading="show_spinner"
@@ -10,8 +10,8 @@
             :option-height="104"
             :options="products"
             :searchable="true"
-            :internal-search="true" 
-            :clear-on-select="false" 
+            :internal-search="true"
+            :clear-on-select="false"
             @search-change="asyncFind"
             @select="selectProduct"
             >
@@ -52,6 +52,7 @@ export default {
 
     methods : {
         asyncFind (query) {
+            console.log("🚀 ~ file: PedidoAsyncFindProduct.vue:55 ~ asyncFind ~ query:", query)
             window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.User.token;
 
             axios.post('/api/products/find_by_name', {
@@ -59,19 +60,19 @@ export default {
             }).then((result) => {
                 this.products = result.data;
             }).catch((err) => {
-                
+
             });
         },
-        
+
         customLabel ({ name }) {
             return `${name}`;
         },
 
         selectProduct(el){
 
-            this.$store.commit('SET_PRODUCT_PRICE_LIST', 
+            this.$store.commit('SET_PRODUCT_PRICE_LIST',
             {
-                index : this.index, 
+                index : this.index,
                 product_id : el.id,
                 product_name : el.name,
                 price_list : el.price_list
@@ -81,7 +82,7 @@ export default {
         removeProduct(el)
         {
             this.$store.commit('DELETE_PEDIDO_CLIENTE', this.index);
-        }        
+        }
     },
 
 }

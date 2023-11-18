@@ -141,6 +141,7 @@ class RemitidoState extends InterfaceStatus {
         const id = this.data.id;
 
         this.data.id = this.remito.code;
+        console.log("🚀 ~ file: RemitidoState.js:144 ~ RemitidoState ~ this.data:", this.data)
 
         const pdf = PreparePedidoClientePdf.prepare(this.Store.getters.GetCompany, this.data, this.Store);
 

@@ -8,11 +8,11 @@ class CotizacionPdf extends InvoiceTypeB {
         super()
 
         this.BillCbteTipo = BillCbteTipo;
-        
+
     }
-    
+
     details_of_product(title){
-        
+
         let height_position = this.first_line_where_write_details; //desde 103 a 220, en ese rango se imprimwn los detalles
         let current_page = 1;
         let width_position = 0;
@@ -62,7 +62,7 @@ class CotizacionPdf extends InvoiceTypeB {
             let description_when_isCHP = '';
 
             if (product.isCHP) {
-                
+
                 const rounded_mts_by_unit = parseFloat(product.rounded_mts) / parseFloat(product.quantity);
 
                 const mts_by_unit = parseFloat(product.real_mts) / parseFloat(product.quantity);
@@ -74,7 +74,11 @@ class CotizacionPdf extends InvoiceTypeB {
                 }
 
             }else{
-                description = product.product_name;
+                let metros_cuadrados = ''
+				if (product.metros_cuadrados) {
+					metros_cuadrados = 'M2xC. ' + product.metros_cuadrados
+				}
+                description = product.product_name + ' ' + metros_cuadrados;
             }
 
             let product_name_width = this.pdf.getTextDimensions(description);
@@ -96,7 +100,7 @@ class CotizacionPdf extends InvoiceTypeB {
                     this.pdf.text(description_when_isCHP, width_position, height_position, options);
                 }
             }
-            
+
             //##### UNIT PRICE ######
             width_position = 156;
             options = {
@@ -136,19 +140,19 @@ class CotizacionPdf extends InvoiceTypeB {
                 maxWidth : 23,
                 align : 'right'
             }
- 
+
             //##### TOTAL ######
             if (product.isCHP){
-                const total = product.unit_price * product.mts_to_invoiced;    
+                const total = product.unit_price * product.mts_to_invoiced;
                 this.pdf.text(this.CurrencyFormat(total), width_position, height_position, options);
             }else{
 
                 const total = product.unit_price * product.quantity;
                 this.pdf.text(this.CurrencyFormat(total), width_position, height_position, options);
             }
-            
+
             if (height_position > 208) {
-                this.pdf.addPage();  
+                this.pdf.addPage();
                 height_position = 103;
                 this.invoice_original(title);
                 current_page = current_page + 1;
@@ -159,27 +163,27 @@ class CotizacionPdf extends InvoiceTypeB {
     }
 
     details_of_totals() {
-        
+
         let height_position = this.margin_bottom - 40;
         this.pdf.setFontSize(12);
         this.pdf.setFont('Helvetica','bold');
         if (this.voucher.totals) {
-            
+
             height_position = height_position + 5;
-        
+
             this.pdf.text('TOTAL:', this.first_column_text() * 8.5, height_position, {
                 lineHeightFactor: 1.2,
                 maxWidth: 100,
                 align: 'right'
             });
 
-           
+
             this.pdf.text(this.CurrencyFormat(this.voucher.totals), this.first_column_text() * 11.5, height_position, {
                 lineHeightFactor: 1.2,
                 maxWidth: 100,
                 align: 'right'
             });
-                
+
             this.total_a_letras(this.voucher.totals);
 
         }
