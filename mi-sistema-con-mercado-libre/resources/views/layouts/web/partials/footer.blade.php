@@ -15,12 +15,13 @@
         <div class="social-menu">
             <ul id="social-menu-footer" class="menu">
               <li class="menu-item">
-                <a href="https://www.facebook.com/profile.php?id=100090542605471"><i class="fa fa-facebook"></i></a>
+                <a href="https://www.facebook.com/profile.php?id=100090542605471" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
               </li>
               <li class="menu-item">
-                <a href="http://twitter.com"><i class="fa fa-google-plus"></i></a>
+              <a href="https://www.instagram.com/outletceramicasspegazzini/" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+              <!-- <a href="http://twitter.com"><i class="fa fa-google-plus"></i></a> -->
               </li>
-              <li class="menu-item">
+              <!-- <li class="menu-item">
                 <a href="http://plus.google.com"><i class="fa fa-twitter"></i></a>
               </li>
               <li class="menu-item">
@@ -29,7 +30,7 @@
                 <a href="http://foursquare.com"><i class="fa fa-instagram"></i></a></li>
               <li class="menu-item">
                 <a href="/feed"><i class="fa fa-dribbble"></i></a>
-              </li>
+              </li> -->
             </ul>
           </div>
       </div>
@@ -59,7 +60,14 @@
             <div class="office">
               <p><i class="fa fa-map-marker"></i> Los Andes 1659 - Carlos Spegazzini
               </p>
-              <p><i class="fa fa-phone"></i> +542236682788 </p>
+              <p><a href="https://www.instagram.com/outletceramicasspegazzini/" target="_blank">
+                 <i class="fa fa-instagram"></i></a>
+              </p>
+              <a href="https://www.facebook.com/search/top/?q=Ceramicas%20Spegazzini" target="_blank">
+                <i class="fa fa-facebook"></i> Ceramicas Spegazzini </a>
+              </p>
+              <p><i class="fa fa-whatsapp" aria-hidden="true"></i>+54-9-1128678563</p>
+              <p><i class="fa fa-phone"></i> +54-9-1128678563 </p>
               <p><i class="fa fa-envelope"></i> patriciabeltrami2@gmail.com </p>
               <!-- <p><i class="fa fa-fax"></i> (102) 8888 9999 </p> -->
               <p><i class="fa fa-clock-o"></i> Lunes a Viernes de 08:00 a 16:00 Hs. <br/> Sábados de 08:00 a 13:00 Hs.</p>

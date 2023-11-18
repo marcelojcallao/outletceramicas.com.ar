@@ -27,20 +27,22 @@
                 <div class="social-menu">
                     <ul id="social-menu-top" class="menu">
                     <li class="menu-item">
-                        <a href="https://www.facebook.com/profile.php?id=100090542605471"><i class="fa fa-facebook"></i></a>
+                        <a href="https://www.facebook.com/profile.php?id=100090542605471" target="_blank">
+                        <i class="fa fa-facebook"></i>
+                        </a>
                     </li>
-                    <li class="menu-item">
+                    </li>
+                    <li id="menu-item680" class="menu-item">
+                        <a href="https://www.instagram.com/outletceramicasspegazzini/" target="_blank"><i class="fa fa-instagram"></i></a></li>
+                        <li class="menu-item">
                         <a href="http://twitter.com"><i class="fa fa-google-plus"></i></a>
-                    </li>
-                    <li class="menu-item">
+                    <!-- <li class="menu-item">
                         <a href="http://plus.google.com"><i class="fa fa-twitter"></i></a>
                     </li>
                     <li class="menu-item">
                         <a href="http://linkedin.com"><i class="fa fa-youtube-play"></i></a></li>
-                    <li id="menu-item680" class="menu-item">
-                        <a href="http://foursquare.com"><i class="fa fa-instagram"></i></a></li>
                     <li id="menu-item681" class="menu-item">
-                        <a href="/feed"><i class="fa fa-dribbble"></i></a>
+                        <a href="/feed"><i class="fa fa-dribbble"></i></a> -->
                     </li>
                     </ul>
                 </div>
@@ -53,8 +55,10 @@
                 <div class="contact-detail">
                     <div class="row">
                     <div class="col-md-4 col-xl-3 col-xl-offset-1">
-                        <i class="fa fa-phone"></i>
-                        <h3>+542236682788</h3>
+                    <i class="fa fa-whatsapp" aria-hidden="true"></i>
+                    <h3>+54-9-1128678563</h3>
+                    <i class="fa fa-phone"></i>
+                        <h3>+54-9-1128678563</h3>
                         <span>patriciabeltrami2@gmail.com</span>
                     </div>
                     <div class="col-md-4">

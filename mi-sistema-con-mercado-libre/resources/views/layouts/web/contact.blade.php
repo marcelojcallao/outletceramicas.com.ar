@@ -53,7 +53,10 @@
         <div class="office">
           <p><i class="fa fa-map-marker"></i>  Los Andes 1659 - Carlos Spegazzini
           </p>
-          <p><i class="fa fa-phone"></i> +542236682788 </p>
+          <p><a href="https://www.instagram.com/outletceramicasspegazzini/" target="_blank"><i class="fa fa-instagram"></i> outletceramicasspegazzini </a></p>
+          <p><a href="https://www.facebook.com/search/top/?q=Ceramicas%20Spegazzini" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i> Ceramicas Spegazzini </a></p>
+          <p><i class="fa fa-whatsapp" aria-hidden="true"></i> +54-9-1128678563</p>
+          <p><i class="fa fa-phone"></i> +54-9-1128678563 </p>
           <p><i class="fa fa-envelope"></i> patriciabeltrami2@gmail.com </p>
           <p><i class="fa fa-clock-o"></i> Lunes a Viernes de 08:00 a 16:00 Hs.
 Sábados de 08:00 a 13:00 Hs.</p>
