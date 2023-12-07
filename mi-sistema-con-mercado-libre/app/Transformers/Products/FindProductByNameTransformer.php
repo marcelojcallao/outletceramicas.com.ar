@@ -77,7 +77,7 @@ class FindProductByNameTransformer extends TransformerAbstract
 			'stock' => $pr->stock,
 			'sheet_metal_cuttings' => $this->unionSheetMetalCuttingByMts($pr),
 			'mts_by_unity' => $pr->mts_by_unity,
-			'metros_cuadrados' => $pr->m2,
+			'metros_cuadrados' => ($pr->m2) ? $pr->m2 : '',
 			'critical_stock' => $pr->critical_stock,
 			'thumbnail' => ($pr->publication()->exists()) ? $pr->publication->thumbnail : '',
 			'isCHP' => $pr->isCHP,
