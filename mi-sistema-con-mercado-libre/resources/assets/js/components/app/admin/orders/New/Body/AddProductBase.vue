@@ -47,17 +47,16 @@
 
                 </div>
                 <div class="item-grid11">
-                    <label class="form--label" for="mts_by_unity-input">Metros por unidad</label>
+                    <label class="form--label" for="mts_by_unity-input">Metros por caja</label>
                     <currency-input
                         class="form--input"
-                        :disabled="!IsCHP"
-                        :class="{'isDisabled':!IsCHP}"
+                        :disabled="true"
                         id="mts_by_unity-input"
                         @focus="$event.target.select()"
                         type="text"
                         :currency="null"
                         locale="es-AR"
-                        v-model="mts_by_unity"
+                        v-model="metros_cuadrados"
                         :allow-negative="false"
                         :precision="2"
                         @blur="chequeo_stock($event)"

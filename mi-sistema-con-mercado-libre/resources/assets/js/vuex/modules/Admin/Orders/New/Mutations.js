@@ -27,6 +27,7 @@ export const NEW_ORDER_ADD_NEW_ROW_PRODUCT = (state) => {
             real_mts : 0,
             mts_to_invoiced : 0,
             mts_by_unity : 0,
+            metros_cuadrados : 0,
             iva_import : 0,
             neto : 0,
             discount : 0,
@@ -45,6 +46,10 @@ export const NEW_ORDER_SET_UNIT_PRICE_PRODUCT = (state, payload) => {
 
 export const NEW_ORDER_SET_MTS_BY_UNITY = (state, payload) => {
     state.order.products[payload.index].mts_by_unity = payload.value;
+}
+export const NEW_ORDER_SET_METROS_CUADRADOS = (state, payload) => {
+    console.log("🚀 ~ file: Mutations metros cuadrados.js:51 ~ payload:", payload)
+    state.order.products[payload.index].metros_cuadrados = payload.value;
 }
 
 export const NEW_ORDER_SET_QUANTITY_PRODUCT = (state, payload) => {
@@ -245,6 +250,7 @@ export const NEW_ORDER_SET_INITIAL_STATUS = (state) => {
                 real_mts : 0,
                 mts_to_invoiced : 0,
                 mts_by_unity : 0,
+                metros_cuadrados : 0,
                 iva_import : 0,
                 neto : 0,
                 discount : 0,

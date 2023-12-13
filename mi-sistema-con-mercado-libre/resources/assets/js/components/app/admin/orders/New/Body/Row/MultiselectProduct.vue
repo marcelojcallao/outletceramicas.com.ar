@@ -57,7 +57,7 @@ export default {
         },
 
         updateProductValue(el){
-            let payload = {
+            const payload = {
                 index : this.index,
                 value : el
             }
@@ -89,6 +89,7 @@ export default {
             }, 250);
 
 
+			console.log("🚀 ~ file: MultiselectProduct.vue:94 ~ el:", el)
         }
     },
 

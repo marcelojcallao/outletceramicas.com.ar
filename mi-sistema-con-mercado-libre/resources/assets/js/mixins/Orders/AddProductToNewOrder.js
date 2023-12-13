@@ -496,7 +496,19 @@ export default {
                 this.$store.dispatch('newOrderSetDiscountProduct', payload);
             }
         },
-        mts_by_unity : {
+		metros_cuadrados: {
+			get(){
+				if ( this.NewOrderCurrentProduct && this.NewOrderCurrentProduct.metros_cuadrados ) {
+					this.$store.commit('NEW_ORDER_SET_METROS_CUADRADOS', {index : this.index, value : this.NewOrderCurrentProduct.metros_cuadrados});
+                	return this.NewOrderCurrentProduct.metros_cuadrados
+            	}
+            },
+			set(value) {
+
+
+			}
+		},
+       /*  mts_by_unity : {
             get(){
                 return parseFloat( this.NewOrderMtsByUnityGetter(this.index) )
             },
@@ -541,7 +553,7 @@ export default {
 
                 this.$store.dispatch('updateTotalOnRowProduct', this.index);
             }
-        },
+        }, */
 
         neto : {
             get(){

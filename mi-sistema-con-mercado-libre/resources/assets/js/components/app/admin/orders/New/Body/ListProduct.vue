@@ -4,9 +4,10 @@
             <thead>
                 <tr>
                     <th width="5%" class="text-center">#</th>
-                    <th width="35%" class="text-center">Nombre</th>
+                    <th width="30%" class="text-center">Nombre</th>
                     <th width="10%" class="text-center">P./Un.</th>
                     <th width="10%" class="text-center">Cantidad</th>
+                    <th width="5%" class="text-center">Metros 2</th>
                     <th width="10%" class="text-center">Neto</th>
                     <th width="10%" class="text-center">Desc.</th>
                     <!-- <th width="10%" class="text-center">Iva</th> -->
@@ -37,6 +38,7 @@
                             />
                             <span v-else>{{ (product.isCHP) ? parseFloat(product.mts_to_invoiced) : parseFloat(product.quantity) }}</span>
                         </td>
+                        <td class="text-center">{{(product.metros_cuadrados) ? product.quantity * product.metros_cuadrados : ''}}</td>
                         <td class="text-right">{{product.neto | currency}}</td>
                         <td class="text-right">
                             <Editable_Td v-if="User.type_user_id == 1"

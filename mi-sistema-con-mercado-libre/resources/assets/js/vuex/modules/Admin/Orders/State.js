@@ -43,6 +43,7 @@ const state = {
                 real_mts : 0,
                 mts_to_invoiced : 0,
                 mts_by_unity : 0,
+                metros_cuadrados : 0,
                 iva_import : 0,
                 neto : 0,
                 total : 0,
