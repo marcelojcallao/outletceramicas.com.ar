@@ -4,12 +4,11 @@
             <label >Modo de pago:</label> {{(data && data.payment_data.name) ? data.payment_data.name : ''}}
         </div>
         <div class="item-2">
-            <label >{{IsDiscountText}}:</label> 
-            
+            <label >{{IsDiscountText}}:</label>
         </div>
         <div class="item-3">
             <p>Porcentaje: {{(data && data.payment_data.percentage) ? data.payment_data.percentage : ''}} %</p>
-            
+
         </div>
         <div class="item-4">
             <p>Importe: {{(data && data.payment_data.value) ? data.payment_data.value : '' | currency}}</p>
@@ -23,7 +22,7 @@
 <script>
 export default {
     props : ['data'],
-    
+
     computed : {
 
         IsDiscount(){
@@ -34,7 +33,7 @@ export default {
             return (this.data && this.data.payment_data.value >= 0) ? 'Adicional' : 'Descuento';
         }
     }
- }
+}
 </script>
 
 <style scoped>

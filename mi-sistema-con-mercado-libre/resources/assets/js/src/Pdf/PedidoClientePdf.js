@@ -166,21 +166,18 @@ class PedidoClientePdf extends InvoiceTypeB {
             }
 
             let description = '';
-            let description_when_isCHP = '';
             if (product.isCHP) {
                 const mts_by_unit = parseFloat(product.real_mts) / parseFloat(product.quantity);
 
                 description = `${product.product_name} x ${mts_by_unit.toFixed(2)} mts.`
 
-                if (product.rounded_mts > 0) {
-                    //description_when_isCHP = `Ajuste por corte ${product.rounded_mts} mts. - Total: ${product.mts_to_invoiced} mts.`
-                }
+
             }else{
 				let metros_cuadrados = ''
 				if (product.metros_cuadrados) {
 					metros_cuadrados = 'M2xC. ' + product.metros_cuadrados
 				}
-                description = product.product_name + ' ' + metros_cuadrados;
+                description = product.product_name + ' ' + metros_cuadrados + ' - Mts. tot. ' + product.real_mts;
             }
 
             let product_name_width = this.pdf.getTextDimensions(description);
@@ -191,16 +188,11 @@ class PedidoClientePdf extends InvoiceTypeB {
                     this.pdf.text(line, width_position, height_position, options);
                     height_position = height_position + 4;
                 });
-                //this.pdf.text(description_when_isCHP, width_position, height_position, options);
 
                 height_position = height_position - 4;
 
             }else{
                 this.pdf.text(description, width_position, height_position, options);
-                /* if (product.rounded_mts > 0) {
-                    height_position = height_position + 4;
-                    this.pdf.text(description_when_isCHP, width_position, height_position, options);
-                } */
             }
 
             width_position = 200;

@@ -62,7 +62,7 @@ class PresupuestoPdf extends InvoiceTypeB {
 				if (product.metros_cuadrados) {
 					metros_cuadrados = 'M2xC. ' + product.metros_cuadrados
 				}
-                description = product.product_name + ' ' + metros_cuadrados;
+                description = product.product_name + ' ' + metros_cuadrados + ' - Mts. tot. ' + product.real_mts;
             }
 
             const product_name_width = this.pdf.getTextDimensions(description);

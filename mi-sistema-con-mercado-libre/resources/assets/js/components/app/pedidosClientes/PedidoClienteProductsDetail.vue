@@ -7,6 +7,7 @@
                 <th>Producto</th>
                 <th>Cantidad</th>
                 <th>P.Unit.</th>
+                <th>Metros 2</th>
                 <th>Neto</th>
                 <th>Descuento</th>
                 <th>Total</th>
@@ -31,6 +32,7 @@
                     }}</small></td>
                     <!-- <td class="text-right" >{{(item.isCHP) ? item.mts_to_invoiced : item.quantity | currency}}</td> -->
                     <td class="text-right" >{{item.unit_price | currency}}</td>
+                    <td class="text-right" >{{item.real_mts}}</td>
                     <td class="text-right" >{{item.neto_import | currency}}</td>
                     <td class="text-right" >{{item.discount_import | currency}}</td>
                     <td class="text-right" >{{item.neto_import - item.discount_import  | currency}}</td>
@@ -160,13 +162,12 @@ export default {
         font-size: 14px !important;
         text-align: center;
     }
-    #product-list thead tr th:nth-child(1),
-    #product-list thead tr th:nth-child(8)
+    #product-list thead tr th:nth-child(1)
     {
         width: 3%;
     }
     #product-list thead tr th:nth-child(2){
-        width: 35%;
+        width: 25%;
     }
 
     #product-list thead tr th:nth-child(3){
@@ -178,6 +179,10 @@ export default {
     #product-list thead tr th:nth-child(7)
     {
         width: 10%;
+    }
+	#product-list thead tr th:nth-child(8)
+    {
+        width: 13%;
     }
 
 </style>
