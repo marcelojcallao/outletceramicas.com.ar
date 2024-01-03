@@ -13,6 +13,7 @@ class AddM2FieldToProductTable extends Migration
 	 */
 	public function up()
 	{
+
 		Schema::table('products', function (Blueprint $table) {
 			$table->double('m2', 14, 2)->nullable();
 		});
