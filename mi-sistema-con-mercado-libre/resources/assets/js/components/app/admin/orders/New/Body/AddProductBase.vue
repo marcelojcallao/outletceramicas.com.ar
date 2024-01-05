@@ -31,7 +31,7 @@
                     <p class="formulario__input-error"></p>
                 </div>
                 <div class="item-grid4">
-                    <label class="form--label" for="quantity-input">Cantidad</label>
+                    <label class="form--label" for="quantity-input">Cantidad de cajas</label>
                     <currency-input
                         class="form--input"
                         id="quantity-input"

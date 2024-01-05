@@ -131,7 +131,7 @@ export const NEW_ORDER_SET_IVA_IMPORT_OF_PRODUCT = (state, payload) => {
 }
 
 export const NEW_ORDER_SET_TOTALS_FROM_PRODUCT = (state, index) => {
-
+	// TODO: NEW_ORDER_SET_TOTALS_FROM_PRODUCT este va
     const product = state.order.products[index];
 
     if (product != undefined) {
@@ -139,7 +139,7 @@ export const NEW_ORDER_SET_TOTALS_FROM_PRODUCT = (state, index) => {
         if (state.order.products[index].isCHP) {
             state.order.products[index].neto = (parseFloat(state.order.products[index].unit_price) * parseFloat(state.order.products[index].mts_to_invoiced));
         }else{
-            state.order.products[index].neto = (parseFloat(state.order.products[index].unit_price) * parseFloat(state.order.products[index].quantity));
+            state.order.products[index].neto = (parseFloat(state.order.products[index].unit_price) * parseFloat(state.order.products[index].quantity) * state.order.products[index].metros_cuadrados);
         }
 
         state.order.products[index].iva_import = ( state.order.products[index].neto - parseFloat(state.order.products[index].descuento) )  * parseFloat(state.order.products[index].iva.percentage) / 100;

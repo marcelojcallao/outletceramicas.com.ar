@@ -32,16 +32,16 @@ export default {
                     url : '/empresa/productos/listado',
                     parent_name : 'product'
                 },
-                {
+                /* {
                     active : false,
                     name : 'Stock - Chapas',
                     url : '/empresa/productos/stock',
                     parent_name : 'product'
-                },
+                }, */
             ]
         }
     },
-    
+
     methods : {
 
         click_link(url){
