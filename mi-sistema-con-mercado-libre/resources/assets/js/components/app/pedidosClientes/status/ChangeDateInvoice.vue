@@ -2,9 +2,9 @@
     <div class="btn-group dropdown"
         :class="{' open' : OpenChangeInvoiceDateGetter}"
     >
-        <button 
+        <button
             :disabled="! DisabledButton"
-            class="btn btn-icon sq-32 dropdown-toggle"  
+            class="btn btn-icon sq-32 dropdown-toggle"
             type="button"
             @click="dropdown_open"
             v-tooltip="button.tooltip"
@@ -26,7 +26,7 @@
             <li>
                 <span class="text-center">
                     <tableProducts  />
-                </span> 
+                </span>
             </li>
         </ul>
     </div>
@@ -35,7 +35,7 @@
     import { mapGetters } from 'vuex';
     import tableProducts from './table-products.vue';
     export default {
-        
+
         props : {
             button: {
                 required: true
@@ -54,7 +54,7 @@
                     from: this.$moment().add(5, 'days').toDate(), // Disable all dates after specific date
                 },
             }
-        }, 
+        },
 
         methods : {
 
@@ -77,10 +77,13 @@
             ]),
 
             DisabledButton(){
-                if (( parseInt(this.my_status) - parseInt(this.status_order) ) == 1) {
+				if (parseInt(this.status_order) === 9) {
+					return true
+				}
+                /* if (( parseInt(this.my_status) - parseInt(this.status_order) ) == 1) {
                     return true;
-                }
-                
+                } */
+
                 return false;
             }
 
@@ -88,7 +91,7 @@
 
         watch : {
 
-            PedidoListChildRowReactivityData : 
+            PedidoListChildRowReactivityData :
             {
                 handler(n)
                 {

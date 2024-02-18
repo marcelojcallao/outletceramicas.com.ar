@@ -14,80 +14,111 @@ use Exception;
 
 class PriceListsController extends Controller
 {
-    public function index()
-    {
-        $price_lists = PriceList::all();
+	public function index()
+	{
+		$price_lists = PriceList::all();
 
-        return response()->json($price_lists, 200);
-    }
+		$price_lists = fractal($price_lists, new PriceListTransformer())->toArray()['data'];
 
-    public function enablePriceList()
-    {
-        $price_lists = PriceList::where('enable', 1)->get(['id', 'name', 'benefit'])
-            ->map(function($pl){
-                return [
-                    'price_list_id' => $pl->id,
-                    'name' => $pl->name,
-                    'enabledPriceListToProduct' => false,
-                    'benefit' => $pl->benefit,
-                    'import' => 0,
-                    'price' => 0
-                ];
-            })->toArray();
+		return response()->json($price_lists, 200);
+	}
 
-        return response()->json($price_lists, 200);
-    }
+	public function enablePriceList()
+	{
+		$price_lists = PriceList::where('enable', 1)->get(['id', 'name', 'benefit'])
+			->map(function ($pl) {
+				return [
+					'price_list_id' => $pl->id,
+					'name' => $pl->name,
+					'enabledPriceListToProduct' => false,
+					'benefit' => $pl->benefit,
+					'import' => 0,
+					'price' => 0
+				];
+			})->toArray();
 
-    public function store(NewPriceListFormRequest $request)
-    {
-        $pl = $request->price_list;
-        
-        $price_list = new PriceList;
-        $price_list->name = strtoupper($pl['name']);
-        $price_list->benefit = $pl['benefit'];
-        $price_list->enable = true;
-        $price_list->save();
+		return response()->json($price_lists, 200);
+	}
 
-        $price_list = fractal($price_list, new PriceListTransformer())->toArray()['data'];
+	public function store(NewPriceListFormRequest $request)
+	{
+		$pl = $request->price_list;
 
-        return response()->json($price_list, 201);
-    }
+		$price_list = new PriceList;
+		$price_list->name = strtoupper($pl['name']);
+		$price_list->benefit = $pl['benefit'];
+		$price_list->enable = true;
+		$price_list->save();
 
-    public function getPriceListsOfAProduct()
-    {
-        //$p = Product::find(request()->product_id);
+		$price_list = fractal($price_list, new PriceListTransformer())->toArray()['data'];
 
-        $pid = request()->product_id;
+		return response()->json($price_list, 201);
+	}
 
-        $pl = PriceListProduct::where('product_id', $pid)->get();
-        
-        $l = fractal($pl, new PriceListsByProductTransformer())->toArray()['data'];
+	public function getPriceListsOfAProduct()
+	{
+		//$p = Product::find(request()->product_id);
 
-        return response()->json($l, 200);
-        
-    }
+		$pid = request()->product_id;
 
-    public function updatePriceProductOnPriceList()
-    {
-        $plpr = PriceListProduct::where('pricelist_id', request()->pricelist_id)
-                ->where('product_id', request()->product_id)
-                ->update(
-                    ['price' => request()->new_val]
-                );
-        return response()->json($plpr, 204);
-    }
+		$pl = PriceListProduct::where('product_id', $pid)->get();
 
-    public function update_benefit()
-    {
-        $pl = PriceList::find(request()->price_list_id);
+		$l = fractal($pl, new PriceListsByProductTransformer())->toArray()['data'];
 
-        if (!$pl->enable){
-            throw new Exception('La lista de precios debe estar activa para modificar su beneficio.');
-        }
+		return response()->json($l, 200);
+	}
 
-        $pl->benefit = request()->benefit;
-        $pl->save();
+	public function updatePriceProductOnPriceList()
+	{
+		$plpr = PriceListProduct::where('pricelist_id', request()->pricelist_id)
+			->where('product_id', request()->product_id)
+			->update(
+				['price' => request()->new_val]
+			);
 
-        return response()->json($pl, 201);
-    }
+		return response()->json($plpr, 204);
+	}
+
+	public function update_benefit()
+	{
+		$pl = PriceList::find(request()->price_list_id);
+
+		if (!$pl->enable) {
+			throw new Exception('La lista de precios debe estar activa para modificar su beneficio.');
+		}
+
+		$pl->benefit = (float)request()->benefit;
+		$pl->save();
+
+		PriceListProduct::where('pricelist_id', request()->price_list_id)->get()->each(function ($priceListProduct) use ($pl) {
+
+			if ($priceListProduct->enabledPriceListToProduct) {
+				$priceListProduct->benefit = (float)$pl->benefit;
+				$priceListProduct->price = ((float)$priceListProduct->costo * (float)$pl->benefit / 100) + (float)$priceListProduct->costo;
+				$priceListProduct->save();
+			}
+		});
+
+		return response()->json($pl, 201);
+	}
+
+	public function update_name()
+	{
+		$pl = PriceList::find(request()->price_list_id);
+
+		$pl->name = strtoupper(request()->name);
+		$pl->save();
+
+		return response()->json($pl, 201);
+	}
+
+	public function enable()
+	{
+		$pl = PriceList::find(request()->price_list_id);
+
+		$pl->enable = request()->enable;
+		$pl->save();
+
+		return response()->json($pl, 201);
+	}
 }

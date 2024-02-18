@@ -57,15 +57,7 @@
                         class : 'btn btn-default btn-icon sq-32',
                         icon : 'post_add',
                     },
-                    {
-                        status_id : constants.FACTURADO,
-                        type : 'change_invoice_date',
-                        tooltip : 'Generar factura',
-                        click : 'una función',
-                        method : this.changeStatus,
-                        class : 'btn btn-default btn-icon sq-32',
-                        icon : 'edit_note',
-                    },
+
                     {
                         status_id : constants.PREPARADO,
                         type : 'whoPrepared',
@@ -103,6 +95,15 @@
                         method : this.changeStatus,
                         class : 'btn btn-default btn-icon sq-32',
                         icon : 'account_circle',
+                    },
+					{
+                        status_id : constants.FACTURADO,
+                        type : 'change_invoice_date',
+                        tooltip : 'Generar factura',
+                        click : 'una función',
+                        method : this.changeStatus,
+                        class : 'btn btn-default btn-icon sq-32',
+                        icon : 'edit_note',
                     },
                 ]
             }

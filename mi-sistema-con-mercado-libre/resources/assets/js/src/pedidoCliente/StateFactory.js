@@ -16,10 +16,6 @@ const statusses = [
         status : PresupuestoState
     },
     {
-        status_id : 5,
-        status : FacturadoState
-    },
-     {
         status_id : 6,
         status : PreparadoState
     },
@@ -34,7 +30,11 @@ const statusses = [
     {
         status_id : 9,
         status : EntregadoState
-    }, 
+    },
+	{
+        status_id : 14,
+        status : FacturadoState
+    },
 ];
 
 class FactoryStatus {
@@ -49,16 +49,39 @@ class FactoryStatus {
     }
 
     getInstance(){
-        
-        statusses.forEach(status => {
 
-            if (status.status_id == this.current_status + 1) {
-                this.state = status.status;
-            }
-            
+        /* statusses.map(status => {
+
+
+			if (status.status_id == this.current_status + 1) {
+				this.state = status.status;
+			}
+
         });
 
-        return this.state;
+        return this.state; */
+
+		if (this.current_status == 2) {
+			return RemitidoState
+		}
+		if (this.current_status == 3) {
+			return PresupuestoState
+		}
+		if (this.current_status == 4) {
+			return PreparadoState
+		}
+		if (this.current_status == 6) {
+			return RetiradoState
+		}
+		if (this.current_status == 7) {
+			return DespachadoState
+		}
+		if (this.current_status == 8) {
+			return EntregadoState
+		}
+		if (this.current_status == 9) {
+			return FacturadoState
+		}
     }
 }
 

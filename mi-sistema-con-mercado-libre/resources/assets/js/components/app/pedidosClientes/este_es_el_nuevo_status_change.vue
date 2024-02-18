@@ -18,7 +18,7 @@
     import * as constants from './../../../src/const/Status';
     import PedidoClienteTipoPersona from './PedidoClienteTipoPersona';
     import CustomerSearchAfipData from './../../app/customers/CustomerSearchAfipData';
-    
+
     export default {
 
         props: ['data'],
@@ -60,15 +60,7 @@
                         class : 'btn btn-default btn-icon sq-32',
                         icon : 'post_add',
                     },
-                    {
-                        status_id : constants.FACTURADO,
-                        type : 'normal',
-                        tooltip : 'Generar factura',
-                        click : 'una función',
-                        method : this.set_pedidocliente_data,
-                        class : 'btn btn-default btn-icon sq-32',
-                        icon : 'edit_note',
-                    }, 
+
                     {
                         status_id : constants.PREPARADO,
                         type : 'whoPrepared',
@@ -107,16 +99,25 @@
                         class : 'btn btn-default btn-icon sq-32',
                         icon : 'account_circle',
                     },
+					{
+                        status_id : constants.FACTURADO,
+                        type : 'normal',
+                        tooltip : 'Generar factura',
+                        click : 'una función',
+                        method : this.set_pedidocliente_data,
+                        class : 'btn btn-default btn-icon sq-32',
+                        icon : 'edit_note',
+                    },
                 ]
             }
         },
 
-        
+
     }
 </script>
 <style scoped>
     .flexBox{
         display: flex;
     }
-    
+
 </style>

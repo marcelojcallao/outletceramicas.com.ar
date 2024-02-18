@@ -31,7 +31,7 @@
             <div class="form-group">
                 <datepicker
                     :language="es"
-                    :disabled="IsSendingToAfip || PedidoListChildRowReactivityData.status_id > 4"
+                    :disabled="IsSendingToAfip "
                     :value="invoice_date"
                     :disabled-dates="disabledDates"
                     v-model="invoice_date"
@@ -40,7 +40,7 @@
             <button
                 class="btn btn-primary btn-xs"
                 type="button"
-                :disabled="spinner || PedidoListChildRowReactivityData.status_id > 4"
+                :disabled="spinner "
                 @click="generate_invoice()"
                 :class="{'btn btn-primary btn-xs spinner spinner-inverse spinner-sm' : spinner}"
 

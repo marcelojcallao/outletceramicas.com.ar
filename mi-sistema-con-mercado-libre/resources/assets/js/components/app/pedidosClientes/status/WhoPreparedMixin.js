@@ -1,9 +1,9 @@
 import {mapGetters} from 'vuex';
 import {Event} from 'vue-tables-2';
-    import StateFactory from './../../../../src/pedidoCliente/StateFactory';
-    import Context from './../../../../src/pedidoCliente/ContextPedidoCliente';
+import StateFactory from './../../../../src/pedidoCliente/StateFactory';
+import Context from './../../../../src/pedidoCliente/ContextPedidoCliente';
 export default {
-        
+
     props : {
         button: {
             required: true
@@ -25,12 +25,12 @@ export default {
         dropdown_open()
         {
             const open = ! this.OpenWhoPreparedInputGetter;
-            
+
             this.$store.commit('SET_OPEN_WHO_PREPARED_INPUT', open);
         },
 
         async changeStatus($event)
-            {   
+            {
                 this.spinner = true;
 
                 const stateFactory = new StateFactory;
@@ -38,18 +38,18 @@ export default {
                 stateFactory.setCurrentStatus(this.PedidoListChildRowReactivityData.status_id);
 
                 const contextExecutor = new Context;
-                
-                const State = stateFactory.getInstance();
 
+                const State = stateFactory.getInstance();
+				console.log("🚀 ~ State:", State)
                 //se instancia la clase del estado que se pide
                 const StateClass = new State;
-                
+
                 StateClass.setData(this.PedidoListChildRowReactivityData);
-                
+
                 StateClass.setStore(this.$store);
-                
+
                 contextExecutor.setState(StateClass);
-                
+
                 const pedido_updated = await contextExecutor.executeAction()
                 .catch((err)=> {
                     this.wsdeError(err.response.data.message);
@@ -68,7 +68,7 @@ export default {
 
                     this.dropdown_open();
                 }
-                
+
             },
 
     },
@@ -105,10 +105,10 @@ export default {
         },
 
         DisabledButton(){
-            if (( parseInt(this.my_status) - parseInt(this.status_order) ) == 1) {
+            if (( parseInt(this.my_status) - parseInt(this.status_order) ) === 2) {
                 return true;
             }
-            
+
             return false;
         }
 
@@ -116,7 +116,7 @@ export default {
 
     watch : {
 
-        PedidoListChildRowReactivityData : 
+        PedidoListChildRowReactivityData :
         {
             handler(n)
             {

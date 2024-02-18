@@ -1,26 +1,29 @@
 <?php
 
-use App\Events\PedidoClienteCreated;
+use App\Src\Models\Tax;
 use App\Events\TestEvent;
-use App\Src\Models\Remito;
+use App\Src\Models\State;
 
+use App\Src\Models\Remito;
 use App\Src\Models\Product;
-use App\Src\Models\PedidosClientesPaymentType;
+use Illuminate\Support\Str;
 use App\Src\Models\Customer;
+use App\Src\Afip\WS\AfipWSFE;
+use App\Src\Models\CheckBook;
+use App\Src\Models\OrderPayment;
+use App\Src\Models\ProductStock;
 use App\Src\Models\PedidoCliente;
 use App\Src\Models\CategoryProduct;
+use App\Src\Models\CheckingAccount;
+use App\Src\Models\PurchaseInvoice;
+use App\Events\PedidoClienteCreated;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Src\Models\PedidoClienteItem;
 use App\Exports\Ventas\SaleInvoiceExport;
+use App\Src\Models\PedidosClientesPaymentType;
+use App\Src\Models\PriceList;
+use App\Src\Models\PriceListProduct;
 use App\Transformers\Products\ProductAtWebTransformer;
-use App\Src\Afip\WS\AfipWSFE;
-use App\Src\Models\CheckBook;
-use App\Src\Models\CheckingAccount;
-use App\Src\Models\OrderPayment;
-use App\Src\Models\ProductStock;
-use App\Src\Models\PurchaseInvoice;
-use App\Src\Models\State;
-use App\Src\Models\Tax;
 
 Route::get('/', function () {
 	return view('welcome');
@@ -32,15 +35,19 @@ Route::get('/home', function () {
 });
 Route::get('pp', function () {
 
-	$p = Product::all();
-
-	$p->map(function ($prod) {
-		$www = substr($prod->code, 1);
-		$prod->code = $www;
-		$prod->save();
-	});
-
-	dd('pp');
+	$p = PriceListProduct::where('pricelist_id', 1)->get();
+	dd($p->first());
+	$p = PriceList::find(3);
+	//dd($p->products());
+	// Obtén tags relacionadas
+	$products = $p->products;
+	dd($p->products()->wherePivot('benefit', 31)->first());
+	// Modifica campo de tabla pivot
+	//$p->products()->detach();
+	/* dd($p->products()->attach($products, [
+		'benefit' => 31,
+		'costo' => 31
+	])); */
 });
 
 Route::get('afip/ptovta', function () {
@@ -142,6 +149,7 @@ Route::group(['middleware' => ['auth']], function () {
 	/** CASH FLOW */
 	Route::group(['prefix' => 'cash'], function () {
 		Route::get('/ingresar', 'App\CashFlowController@cash_flow');
+		Route::get('/buscar', 'App\CashFlowController@cash_flow_history');
 	});
 	/** GANANCIAS POR VENTA */
 	Route::get('/ganancias', 'App\GainsController@list');

@@ -72,6 +72,9 @@ const mutations = {
         state.product.price = null;
         state.product.price = value;
     },
+    SET_CLONE_PRICE_LISTS(state, value){
+        state.clonePriceLists = value;
+    },
 
     //costo
     NEW_PRODUCT_SET_PRICE(state, payload)
@@ -80,7 +83,10 @@ const mutations = {
 
         state.product.price[payload.index].price = parseFloat(payload.price);
 
-        state.product.price[payload.index].import = parseFloat(payload.price) + parseFloat(payload.price) * parseFloat(state.product.price[payload.index].benefit) / 100;
+        const importe = parseFloat(payload.price) + parseFloat(payload.price) * parseFloat(state.product.price[payload.index].benefit) / 100;
+        console.log("🚀 ~ file: Mutations.js:84 ~ importe:", importe.toFixed(2))
+
+		state.product.price[payload.index].import = importe.toFixed(2)
     },
 
     NEW_PRODUCT_SET_PRICE_BASE(state, value){
@@ -89,17 +95,10 @@ const mutations = {
 
     NEW_PRODUCT_SET_PRICE_BY_BENEFIT(state, payload)
     {
-        /* state.product.price.forEach(element => {
-            if(element.price_list_id == payload.price_list_id)
-            {
-                element.benefit = parseFloat(payload.benefit);
-                element.import = (parseFloat(element.price) <= 0) ? 0 : parseFloat(element.price) + (parseFloat(element.price) * element.benefit / 100);
-            }
-
-        }); */
+        console.log("🚀 ~ state.product:", state.product)
         state.product.price[payload.index].benefit = parseFloat(payload.benefit);
         const price = parseFloat(state.product.price[payload.index].price).toFixed(2);
-        state.product.price[payload.index].benefit = parseFloat(payload.benefit);
+        //state.product.price[payload.index].benefit = parseFloat(payload.benefit);
         state.product.price[payload.index].import = (parseFloat(state.product.price[payload.index].price) <= 0) ? 0 : parseFloat(state.product.price[payload.index].price) + (parseFloat(state.product.price[payload.index].price) * state.product.price[payload.index].benefit / 100);
 
     },
@@ -147,10 +146,6 @@ const mutations = {
     NEW_PRODUCT_SET_MTS_BY_UNITY(state, value)
     {
         state.product.mts_by_unity = value;
-    },
-    NEW_PRODUCT_SET_MT2(state, value)
-    {
-        state.product.metros_cuadrados = value;
     },
 
     NEW_PRODUCT_SET_SEE_PRICE_ON_WEB_STORE(state, value) {

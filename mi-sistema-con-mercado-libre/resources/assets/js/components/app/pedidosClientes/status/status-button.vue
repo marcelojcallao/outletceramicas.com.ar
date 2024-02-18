@@ -136,6 +136,7 @@
 
                 const State = stateFactory.getInstance();
 
+
                 //se instancia la clase del estado que se pide
                 const StateClass = new State;
 
@@ -178,7 +179,13 @@
             ]),
 
             DisabledButton(){
-                if (( parseInt(this.my_status) - parseInt(this.status_order) ) == 1) {
+                console.log("🚀 ~ DisabledButton ~ this.status_order:", this.status_order, this.my_status)
+				/*
+				if (parseInt(this.status_order) == 9 && parseInt(this.my_status) >= 8) {
+					return true;
+				}
+ */
+                if (( parseInt(this.my_status) - parseInt(this.status_order) ) === 1) {
                     return true;
                 }
 

@@ -3,7 +3,7 @@
         <button v-if="button.type == 'normal'"
             :data-status="button.status_id"
             @click="set_pedidocliente_data"
-            class="btn btn-icon sq-32" 
+            class="btn btn-icon sq-32"
             :class="[
                 (button.status_id == external_data.status_id +1) ? {'spinner spinner-inverse spinner-sm' : spinner} : '',
                 (!DisabledButton) ? '' : 'btn-color'
@@ -13,8 +13,8 @@
             style="margin-bottom:15px">
             <span class="material-icons">{{button.icon}}</span>
         </button>
-        
-        <WhoPrepared v-if="button.type == 'whoPrepared'" 
+
+        <WhoPrepared v-if="button.type == 'whoPrepared'"
             :icon="button.icon"
             :title="button.title"
             :injectedFunction="set_pedidocliente_data"
@@ -22,7 +22,7 @@
             :data="external_data"
         />
 
-        <WhoDispatch v-if="button.type == 'whoDispatch'" 
+        <WhoDispatch v-if="button.type == 'whoDispatch'"
             :icon="button.icon"
             :title="button.title"
             :injectedFunction="set_pedidocliente_data"
@@ -76,7 +76,7 @@ export default {
                 FECAEDetRequest : null,
                 cbtes_asociados : [],
                 impo_Tot_Conc : 0,
-                
+
             }
         },
 
@@ -96,7 +96,7 @@ export default {
             },
 
             async set_pedidocliente_data($event)
-            {   
+            {
                 this.spinner = true;
 
                 const stateFactory = new StateFactory;
@@ -104,17 +104,17 @@ export default {
                 stateFactory.setCurrentStatus(this.external_data.status_id);
 
                 const contextExecutor = new Context;
-                
+
                 const State = stateFactory.getInstance();
 
                 //se instancia la clase del estado que se pide
                 const StateClass = new State;
                 StateClass.setData(this.external_data);
-                
+
                 StateClass.setStore(this.$store);
 
                 contextExecutor.setState(StateClass);
-                
+
                 let pedido_updated = await contextExecutor.executeAction()
                 .catch((err)=> {
                     this.wsdeError(err.response.data.message);
@@ -130,9 +130,9 @@ export default {
                 Event.$emit('pedido_cliente_list', pedido_updated.data);
 
                 this.$store.commit('SET_PEDIDO_LIST_CHILD_ROW_REACTIVITY_DATA', this.external_data);
-                
+
                 this.spinner = false;
-                
+
             },
 
             enable_button(button_status_id)
@@ -157,7 +157,7 @@ export default {
 
                 return false;
             },
-            
+
         },
 
         computed : {
@@ -171,7 +171,7 @@ export default {
 
             DisabledButton(){
 
-                if (parseInt(this.button.status_id) == parseInt(constants.REMITIDO) && parseInt(this.PedidoListChildRowReactivityData.status_id) == parseInt(constants.PENDIENTE)) {
+                /* if (parseInt(this.button.status_id) == parseInt(constants.REMITIDO) && parseInt(this.PedidoListChildRowReactivityData.status_id) == parseInt(constants.PENDIENTE)) {
                     return true;
                 }
 
@@ -183,10 +183,10 @@ export default {
                     return true;
                 }
 
-                if (parseInt(this.button.status_id) == parseInt(constants.FACTURADO) && parseInt(this.PedidoListChildRowReactivityData.status_id) == parseInt(constants.PRESUPUESTADO)) {
-                    return true;
+                if (parseInt(this.button.status_id) == parseInt(constants.PREPARADO) && parseInt(this.PedidoListChildRowReactivityData.status_id) == parseInt(constants.PRESUPUESTADO)) {
+                    return false;
                 }
-                
+
                 if (parseInt(this.button.status_id) == parseInt(constants.PREPARADO) && parseInt(this.PedidoListChildRowReactivityData.status_id) == parseInt(constants.FACTURADO)) {
                     return true;
                 }
@@ -205,13 +205,19 @@ export default {
 
                 if (parseInt(this.button.status_id) == parseInt(constants.ENTREGADO) && parseInt(this.PedidoListChildRowReactivityData.status_id) == parseInt(constants.DESPACHADO)) {
                     return true;
-                }
+                } */
 
+				if (((parseInt(this.button.status_id) - parseInt(this.PedidoListChildRowReactivityData.status_id)) === 1)) {
+					return true;
+				}
+
+
+                console.log("🚀 ~ DisabledButton ~ false:", this)
                 return false;
-               
+
             }
         },
-       
+
 }
 </script>
 

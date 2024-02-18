@@ -12,6 +12,14 @@ export default {
 
         Status()
         {
+			if (this.data.enable) {
+				return true;
+			}
+
+			if (!this.data.enable) {
+				return false;
+			}
+
             if (this.data.status == 'ACTIVO' || this.data.status == true ) {
                 return true;
             }
@@ -24,6 +32,14 @@ export default {
 
         StatusText()
         {
+			if (this.data.enable) {
+				return 'ACTIVO';
+			}
+
+			if (!this.data.enable) {
+				return 'INACTIVO';
+			}
+
             if (this.data.status == 'ACTIVO' || this.data.status == true ) {
                 return 'ACTIVO';
             }
@@ -34,7 +50,7 @@ export default {
 
         }
     },
-    
+
 }
 </script>
 
@@ -45,5 +61,5 @@ export default {
     .activo{
         background-color: #4C8A48;
     }
-    
+
 </style>
