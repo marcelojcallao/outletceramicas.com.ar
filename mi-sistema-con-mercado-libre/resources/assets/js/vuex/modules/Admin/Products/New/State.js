@@ -15,6 +15,7 @@ const state = {
         price : [],
         price_base : 0,
         mts_by_unity : null,
+		metros_cuadrados: 0,
         publish_on_web : false,
         see_price_on_web : false,
         isCHP : false, //QUE SE VENDE POR METROS,

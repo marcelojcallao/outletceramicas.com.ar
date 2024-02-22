@@ -398,7 +398,17 @@ export default {
             set(value){
                 this.$store.dispatch('productSetApplyDiscountPercentage', value);
             }
-        }
+        },
+
+		metros_cuadrados: {
+			get(){
+				return this.ProductGetter.metros_cuadrados;
+			},
+			set(value){
+				this.$store.dispatch('productSetMetrosCuadrados', value);
+
+			}
+		}
     },
 
     watch : {

@@ -228,7 +228,11 @@ const mutations = {
 
     PRODUCT_SET_APPLY_DISCOUNT_PAY_METHOD(state, value){
         state.product.apply_discount_pay_method = value;
-    }
+    },
+
+	NEW_PRODUCT_SET_MT2(state, value){
+		state.product.metros_cuadrados = value;
+ 	}
 
 }
 

@@ -15,7 +15,7 @@ const actions = {
             return product;
 
         } catch (e) {
-            
+
             throw e;
         }
     },
@@ -43,7 +43,11 @@ const actions = {
     productSetApplyDiscountPercentage(context, value)
     {
         context.commit('PRODUCT_SET_APPLY_DISCOUNT_PERCENTAGE', value);
-    }
+    },
+
+	productSetMetrosCuadrados(context, value){
+		context.commit('NEW_PRODUCT_SET_MT2', value);
+	}
 }
 
 export default actions;
